@@ -17,16 +17,31 @@ export default function Navbar() {
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center space-x-8">
-                        <Link href="/" className="text-gray-300 hover:text-white transition-colors">
-                            Home
-                        </Link>
-                        <Link href="/case-studies" className="text-gray-300 hover:text-white transition-colors">
-                            Case Studies
-                        </Link>
-                        <Link href="/waitlist" className="btn-primary">
-                            Join Waitlist
-                        </Link>
+                    <div className="hidden md:flex items-center">
+                        <div className="flex items-center space-x-8">
+                            <Link href="/" className="text-gray-300 hover:text-white transition-colors">
+                                Home
+                            </Link>
+                            <Link href="/#features" className="text-gray-300 hover:text-white transition-colors">
+                                Features
+                            </Link>
+                            <Link href="/#proven-results" className="text-gray-300 hover:text-white transition-colors">
+                                Case Studies
+                            </Link>
+                        </div>
+                        <div className="flex items-center space-x-3 ml-8">
+                            <a 
+                                href="https://chat-ad-network.vercel.app/" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="btn-secondary"
+                            >
+                                Dashboard
+                            </a>
+                            <Link href="/waitlist" className="btn-primary">
+                                Join Waitlist
+                            </Link>
+                        </div>
                     </div>
 
                     {/* Mobile menu button */}
@@ -64,19 +79,37 @@ export default function Navbar() {
                             Home
                         </Link>
                         <Link
-                            href="/case-studies"
+                            href="/#features"
+                            className="block text-gray-300 hover:text-white transition-colors"
+                            onClick={() => setIsMenuOpen(false)}
+                        >
+                            Features
+                        </Link>
+                        <Link
+                            href="/#proven-results"
                             className="block text-gray-300 hover:text-white transition-colors"
                             onClick={() => setIsMenuOpen(false)}
                         >
                             Case Studies
                         </Link>
-                        <Link
-                            href="/waitlist"
-                            className="block btn-primary text-center"
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            Join Waitlist
-                        </Link>
+                        <div className="flex gap-3">
+                            <a
+                                href="https://chat-ad-network.vercel.app/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex-1 btn-secondary text-center"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                Dashboard
+                            </a>
+                            <Link
+                                href="/waitlist"
+                                className="flex-1 btn-primary text-center"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                Join Waitlist
+                            </Link>
+                        </div>
                     </div>
                 )}
             </div>

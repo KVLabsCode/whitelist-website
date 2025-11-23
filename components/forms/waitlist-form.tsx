@@ -230,11 +230,11 @@ export default function WaitlistForm() {
                             defaultChecked
                             className="sr-only peer"
                         />
-                        <div className="flex items-center gap-3">
-                            <div className="w-5 h-5 rounded-full border-2 border-gray-500 flex items-center justify-center transition-all peer-checked:border-primary-500 peer-checked:bg-primary-500">
-                                <div className="w-2 h-2 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
-                            </div>
+                        <div className="flex items-center gap-3 w-full">
                             <span className="text-white font-medium">Publisher</span>
+                            <svg className="w-5 h-5 text-primary-500 opacity-0 peer-checked:opacity-100 transition-opacity ml-auto" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path d="M5 13l4 4L19 7" />
+                            </svg>
                         </div>
                     </label>
 
@@ -245,11 +245,11 @@ export default function WaitlistForm() {
                             value="Advertiser"
                             className="sr-only peer"
                         />
-                        <div className="flex items-center gap-3">
-                            <div className="w-5 h-5 rounded-full border-2 border-gray-500 flex items-center justify-center transition-all peer-checked:border-accent-500 peer-checked:bg-accent-500">
-                                <div className="w-2 h-2 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
-                            </div>
+                        <div className="flex items-center gap-3 w-full">
                             <span className="text-white font-medium">Advertiser</span>
+                            <svg className="w-5 h-5 text-accent-500 opacity-0 peer-checked:opacity-100 transition-opacity ml-auto" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path d="M5 13l4 4L19 7" />
+                            </svg>
                         </div>
                     </label>
                 </div>

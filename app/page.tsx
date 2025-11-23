@@ -40,11 +40,11 @@ export default function Home() {
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20 max-w-4xl mx-auto">
               <div className="text-center glass-effect rounded-xl p-6">
-                <div className="text-4xl font-bold gradient-text mb-2">600%</div>
+                <div className="text-4xl font-bold gradient-text mb-2">120%</div>
                 <div className="text-gray-400">Average Revenue Increase</div>
               </div>
               <div className="text-center glass-effect rounded-xl p-6">
-                <div className="text-4xl font-bold gradient-text mb-2">1 Hour</div>
+                <div className="text-4xl font-bold gradient-text mb-2">10 Minutes</div>
                 <div className="text-gray-400">Integration Time</div>
               </div>
               <div className="text-center glass-effect rounded-xl p-6">
@@ -56,7 +56,7 @@ export default function Home() {
         </section>
 
         {/* Value Proposition Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-black/30">
+        <section id="features" className="py-20 px-4 sm:px-6 lg:px-8 bg-black/30">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-4xl sm:text-5xl font-bold text-center text-white mb-16">
               Built for the AI Era
@@ -80,13 +80,13 @@ export default function Home() {
                     <svg className="w-5 h-5 text-primary-400 mr-3 mt-1 flex-shrink-0" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
                       <path d="M5 13l4 4L19 7" />
                     </svg>
-                    <span className="text-gray-300">1-hour integration with simple API</span>
+                    <span className="text-gray-300">10-minute integration with simple API</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-primary-400 mr-3 mt-1 flex-shrink-0" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
                       <path d="M5 13l4 4L19 7" />
                     </svg>
-                    <span className="text-gray-300">600% revenue increase per session</span>
+                    <span className="text-gray-300">120% revenue increase per session</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-primary-400 mr-3 mt-1 flex-shrink-0" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -149,7 +149,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3">Integrate</h3>
                 <p className="text-gray-400">
-                  Simple API integration takes less than an hour. No complex setup required.
+                  Simple API integration takes just 10 minutes. No complex setup required.
                 </p>
               </div>
 
@@ -177,7 +177,7 @@ export default function Home() {
         </section>
 
         {/* Case Studies Preview */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-black/30">
+        <section id="proven-results" className="py-20 px-4 sm:px-6 lg:px-8 bg-black/30">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
