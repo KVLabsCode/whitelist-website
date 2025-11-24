@@ -24,8 +24,7 @@ export default function Home() {
                 <span className="gradient-text">AI Advertising</span>
               </h1>
               <p className="text-xl sm:text-2xl text-gray-300 mb-8 animate-slide-up">
-                Revolutionary ad infrastructure enabling publishers to monetize AI chatbots
-                and advertisers to reach users in conversational interfaces.
+                Monetize AI conversations. Reach engaged users. Transform advertising.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
                 <Link href="/waitlist" className="btn-primary text-lg px-8 py-4">
@@ -72,8 +71,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-4">For Publishers</h3>
                 <p className="text-gray-300 mb-6">
-                  Monetize your AI chatbot without compromising user experience. Our contextual ad system
-                  seamlessly integrates into conversations, delivering relevant ads that users actually engage with.
+                  Turn conversations into revenue. Contextual ads that users love.
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-start">
@@ -107,8 +105,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-4">For Advertisers</h3>
                 <p className="text-gray-300 mb-6">
-                  Reach your audience where they're already engaged. Place your ads in AI-powered conversations
-                  across premium chatbots with unprecedented targeting and engagement rates.
+                  Target engaged users in AI conversations. Higher engagement, better ROI.
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-start">
@@ -142,14 +139,14 @@ export default function Home() {
               How It Works
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
               <div className="text-center">
                 <div className="w-16 h-16 bg-primary-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
                   <span className="text-2xl font-bold text-primary-400">1</span>
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3">Integrate</h3>
                 <p className="text-gray-400">
-                  Simple API integration takes just 10 minutes. No complex setup required.
+                  10-minute setup. Zero complexity.
                 </p>
               </div>
 
@@ -159,7 +156,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3">Optimize</h3>
                 <p className="text-gray-400">
-                  Our AI analyzes context and user intent to deliver perfectly matched ads.
+                  AI-powered matching. Perfect ads, perfect timing.
                 </p>
               </div>
 
@@ -169,8 +166,54 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3">Scale</h3>
                 <p className="text-gray-400">
-                  Watch your revenue grow while maintaining exceptional user experience.
+                  Scale revenue. Keep users happy.
                 </p>
+              </div>
+            </div>
+
+            <div className="max-w-3xl mx-auto mt-20">
+              <p className="text-center text-gray-300 mb-2 text-2xl font-semibold">
+                Built for Developers
+              </p>
+              <p className="text-center text-gray-400 mb-6 text-base">
+                Lightweight SDK. Few lines of code. Maximum impact.
+              </p>
+              <div className="glass-effect rounded-xl p-6 overflow-x-auto bg-gray-900/50 border border-white/10 mb-6">
+                <pre className="text-sm font-mono leading-relaxed">
+                  <code className="block">
+                    <span className="text-cyan-400">&lt;</span>
+                    <span className="text-blue-400">ChatbotAd</span>
+                    <br />
+                    <span className="ml-4">
+                      <span className="text-purple-400">publisherId</span>
+                      <span className="text-gray-500">=</span>
+                      <span className="text-green-400">"your-publisher-id"</span>
+                    </span>
+                    <br />
+                    <span className="ml-4">
+                      <span className="text-purple-400">theme</span>
+                      <span className="text-gray-500">=</span>
+                      <span className="text-green-400">"dark"</span>
+                      <span className="text-gray-500">             </span>
+                      <span className="text-gray-500">//'light' or 'dark'</span>
+                    </span>
+                    <br />
+                    <span className="ml-4">
+                      <span className="text-purple-400">keyword</span>
+                      <span className="text-gray-500">=</span>
+                      <span className="text-green-400">"technology,ai"</span>
+                      <span className="text-gray-500">  </span>
+                      <span className="text-gray-500">// Pass contextual keyword</span>
+                    </span>
+                    <br />
+                    <span className="text-cyan-400">/&gt;</span>
+                  </code>
+                </pre>
+              </div>
+              <div className="text-center">
+                <Link href="/docs" className="btn-primary inline-block">
+                  View Docs
+                </Link>
               </div>
             </div>
           </div>
@@ -184,7 +227,7 @@ export default function Home() {
                 Proven Results
               </h2>
               <p className="text-xl text-gray-400">
-                See how publishers and advertisers are succeeding with AdInfra AI
+                Real results from real partners
               </p>
             </div>
 
@@ -210,7 +253,7 @@ export default function Home() {
               <span className="gradient-text">AI Advertising?</span>
             </h2>
             <p className="text-xl text-gray-300 mb-8">
-              Join the waitlist today and be among the first to access our revolutionary platform
+              Be first. Get early access to the future of AI advertising.
             </p>
             <Link href="/waitlist" className="btn-primary text-lg px-8 py-4 inline-block">
               Join the Waitlist

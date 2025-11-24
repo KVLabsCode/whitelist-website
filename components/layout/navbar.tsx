@@ -19,9 +19,6 @@ export default function Navbar() {
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center">
                         <div className="flex items-center space-x-8">
-                            <Link href="/" className="text-gray-300 hover:text-white transition-colors">
-                                Home
-                            </Link>
                             <Link href="/#features" className="text-gray-300 hover:text-white transition-colors">
                                 Features
                             </Link>
@@ -71,13 +68,6 @@ export default function Navbar() {
                 {/* Mobile menu */}
                 {isMenuOpen && (
                     <div className="md:hidden py-4 space-y-4 animate-fade-in">
-                        <Link
-                            href="/"
-                            className="block text-gray-300 hover:text-white transition-colors"
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            Home
-                        </Link>
                         <Link
                             href="/#features"
                             className="block text-gray-300 hover:text-white transition-colors"

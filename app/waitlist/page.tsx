@@ -35,44 +35,44 @@ export default function WaitlistPage() {
                             <p className="text-xl sm:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
                                 Be among the first to access the future of AI advertising. Get early access to our revolutionary platform and exclusive benefits.
                             </p>
-
-                            {/* Benefits Grid */}
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 mb-16">
-                                <div className="glass-effect rounded-xl p-6 text-center">
-                                    <div className="w-12 h-12 bg-primary-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                                        <svg className="w-6 h-6 text-primary-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                        </svg>
-                                    </div>
-                                    <h3 className="text-lg font-semibold text-white mb-2">Early Access</h3>
-                                    <p className="text-sm text-gray-400">Be first to use our platform before public launch</p>
-                                </div>
-
-                                <div className="glass-effect rounded-xl p-6 text-center">
-                                    <div className="w-12 h-12 bg-accent-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                                        <svg className="w-6 h-6 text-accent-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                    </div>
-                                    <h3 className="text-lg font-semibold text-white mb-2">Special Pricing</h3>
-                                    <p className="text-sm text-gray-400">Exclusive discounts for early adopters</p>
-                                </div>
-
-                                <div className="glass-effect rounded-xl p-6 text-center">
-                                    <div className="w-12 h-12 bg-primary-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                                        <svg className="w-6 h-6 text-primary-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                                        </svg>
-                                    </div>
-                                    <h3 className="text-lg font-semibold text-white mb-2">Priority Support</h3>
-                                    <p className="text-sm text-gray-400">Dedicated onboarding and support team</p>
-                                </div>
-                            </div>
                         </div>
 
                         {/* Waitlist Form */}
-                        <div className="animate-slide-up">
+                        <div className="animate-slide-up mb-16">
                             <WaitlistForm />
+                        </div>
+
+                        {/* Benefits Grid */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                            <div className="glass-effect rounded-xl p-6 text-center">
+                                <div className="w-12 h-12 bg-primary-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                    <svg className="w-6 h-6 text-primary-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-lg font-semibold text-white mb-2">Early Access</h3>
+                                <p className="text-sm text-gray-400">Be first to use our platform before public launch</p>
+                            </div>
+
+                            <div className="glass-effect rounded-xl p-6 text-center">
+                                <div className="w-12 h-12 bg-accent-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                    <svg className="w-6 h-6 text-accent-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-lg font-semibold text-white mb-2">Special Pricing</h3>
+                                <p className="text-sm text-gray-400">Exclusive discounts for early adopters</p>
+                            </div>
+
+                            <div className="glass-effect rounded-xl p-6 text-center">
+                                <div className="w-12 h-12 bg-primary-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                    <svg className="w-6 h-6 text-primary-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-lg font-semibold text-white mb-2">Priority Support</h3>
+                                <p className="text-sm text-gray-400">Dedicated onboarding and support team</p>
+                            </div>
                         </div>
 
                         {/* Trust Indicators */}
