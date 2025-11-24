@@ -225,6 +225,8 @@ export default function DocsPage() {
                         <br />
                         <span className="ml-16 text-blue-400">theme</span><span className="text-gray-500">=</span><span className="text-green-400">"dark"</span>
                         <br />
+                        <span className="ml-16 text-blue-400">format</span><span className="text-gray-500">=</span><span className="text-green-400">"standard"</span>
+                        <br />
                         <span className="ml-12 text-gray-500">/&gt;</span>
                         <br />
                         <span className="ml-8 text-gray-500">&lt;/</span><span className="text-yellow-400">div</span><span className="text-gray-500">&gt;</span>
@@ -273,6 +275,16 @@ export default function DocsPage() {
                         The visual theme for the ad component. Choose between 'light' and 'dark' to match your application's design.
                       </p>
                     </div>
+
+                    <div className="glass-effect rounded-xl p-6 border border-white/10">
+                      <h3 className="text-xl font-semibold text-white mb-3">format</h3>
+                      <p className="text-gray-400 mb-2">
+                        <span className="text-yellow-400">Optional</span> • <span className="text-gray-500">'standard' | 'small'</span> • <span className="text-gray-500">Default: 'standard'</span>
+                      </p>
+                      <p className="text-gray-300">
+                        The size format of the rendered ad. Use 'standard' for the default size or 'small' for a more compact ad display.
+                      </p>
+                    </div>
                   </div>
                 </section>
 
@@ -306,11 +318,17 @@ export default function DocsPage() {
                               <td className="py-2 px-4 text-red-400">Yes</td>
                               <td className="py-2 px-4 text-gray-500">-</td>
                             </tr>
-                            <tr>
+                            <tr className="border-b border-white/5">
                               <td className="py-2 px-4"><code className="text-primary-400">theme</code></td>
                               <td className="py-2 px-4 text-gray-400">'light' | 'dark'</td>
                               <td className="py-2 px-4 text-yellow-400">No</td>
                               <td className="py-2 px-4 text-gray-500">'dark'</td>
+                            </tr>
+                            <tr>
+                              <td className="py-2 px-4"><code className="text-primary-400">format</code></td>
+                              <td className="py-2 px-4 text-gray-400">'standard' | 'small'</td>
+                              <td className="py-2 px-4 text-yellow-400">No</td>
+                              <td className="py-2 px-4 text-gray-500">'standard'</td>
                             </tr>
                           </tbody>
                         </table>
