@@ -15,7 +15,6 @@ const FIELD_IDS = {
 
 export default function WaitlistForm() {
     const [selectedIndustry, setSelectedIndustry] = useState('');
-    const [customIndustry, setCustomIndustry] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [submitError, setSubmitError] = useState('');
@@ -44,13 +43,9 @@ export default function WaitlistForm() {
             params.append(`entry.${FIELD_IDS.email}`, formData.get('email') as string);
             params.append(`entry.${FIELD_IDS.website}`, formData.get('website') as string);
 
-            // Handle industry field - append custom industry if "Other" is selected
+            // Handle industry field
             const industry = formData.get('industry') as string;
-            if (industry === 'Other' && customIndustry) {
-                params.append(`entry.${FIELD_IDS.industry}`, `Other: ${customIndustry}`);
-            } else {
-                params.append(`entry.${FIELD_IDS.industry}`, industry);
-            }
+            params.append(`entry.${FIELD_IDS.industry}`, industry);
 
             params.append(`entry.${FIELD_IDS.userType}`, formData.get('userType') as string);
 
@@ -63,7 +58,6 @@ export default function WaitlistForm() {
 
             // If we get here, assume success (no-cors doesn't return response)
             setIsSubmitted(true);
-            setCustomIndustry('');
             setSelectedIndustry('');
         } catch (error) {
             console.error('Form submission error:', error);
@@ -177,9 +171,6 @@ export default function WaitlistForm() {
                             className="w-full px-4 py-3.5 bg-white/5 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-transparent focus:bg-white/10 transition-all duration-200 hover:bg-white/10 cursor-pointer appearance-none"
                             onChange={(e) => {
                                 setSelectedIndustry(e.target.value);
-                                if (e.target.value !== 'Other') {
-                                    setCustomIndustry('');
-                                }
                             }}
                         >
                             <option value="" className="bg-gray-900">Select an industry</option>
@@ -198,23 +189,6 @@ export default function WaitlistForm() {
                 </div>
             </div>
 
-            {/* Custom Industry (shown when "Other" is selected) */}
-            {selectedIndustry === 'Other' && (
-                <div className="animate-slide-up group">
-                    <label htmlFor="customIndustry" className="block text-sm font-semibold text-gray-300 mb-2.5">
-                        Please specify your industry *
-                    </label>
-                    <input
-                        type="text"
-                        id="customIndustry"
-                        value={customIndustry}
-                        onChange={(e) => setCustomIndustry(e.target.value)}
-                        required
-                        className="w-full px-4 py-3.5 bg-white/5 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-transparent focus:bg-white/10 transition-all duration-200 hover:bg-white/10"
-                        placeholder="Enter your industry"
-                    />
-                </div>
-            )}
 
             {/* User Type */}
             <div className="pt-4">
