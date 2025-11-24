@@ -9,9 +9,9 @@ export default function CaseStudiesPage() {
         <>
             <Navbar />
 
-            <main className="min-h-screen pt-24 pb-20">
+            <main className="min-h-screen pb-20">
                 {/* Header */}
-                <section className="px-4 sm:px-6 lg:px-8 py-12 bg-gradient-to-br from-primary-900/20 via-transparent to-accent-900/20">
+                <section className="px-4 sm:px-6 lg:px-8 pt-32 pb-12 bg-gradient-to-br from-primary-900/20 via-transparent to-accent-900/20">
                     <div className="max-w-7xl mx-auto text-center">
                         <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">
                             Success Stories
