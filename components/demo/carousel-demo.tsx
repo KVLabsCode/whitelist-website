@@ -2,13 +2,14 @@
 
 import { useState, useEffect } from 'react';
 
-type AdFormat = 'inline' | 'followup' | 'card' | 'generation';
+type AdFormat = 'inline' | 'generation' | 'followup' | 'card';
 
+// Order here controls carousel order; put music generation second
 const formats = [
   { id: 'inline' as AdFormat, name: 'Inline Ads', description: 'Rich contextual ads within responses' },
+  { id: 'generation' as AdFormat, name: 'Generation Ads', description: 'Ads during AI generation (non-chat)' },
   { id: 'followup' as AdFormat, name: 'Follow-up Questions', description: 'Sponsored question suggestions' },
   { id: 'card' as AdFormat, name: 'Card Format', description: 'Lead generation cards' },
-  { id: 'generation' as AdFormat, name: 'Generation Ads', description: 'Ads during AI generation (non-chat)' },
 ];
 
 export default function CarouselDemo() {
@@ -16,18 +17,46 @@ export default function CarouselDemo() {
   const [step, setStep] = useState(0);
   const [isAnimating, setIsAnimating] = useState(true);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   // Animation steps within each format
   useEffect(() => {
     if (!isAnimating) return;
 
+    // Special timing/flow for Generation format
+    if (activeFormat === 'generation') {
+      // If we're not currently generating, keep us in the initial state
+      if (!isGenerating) {
+        if (step !== 0) setStep(0);
+        return;
+      }
+
+      // step 0 -> 1: brief generation state
+      // step 1 -> 2: show ad prominently for ~5s, then reveal songs
+      const genTimings = [800, 5000, 0, 0];
+      const delay = genTimings[step] ?? 0;
+
+      // Once we reach step 2 (songs visible), stop auto-advancing
+      if (step >= 2 || delay === 0) return;
+
+      const timer = setTimeout(() => {
+        setStep((prev) => {
+          if (prev >= 2) return prev;
+          return prev + 1;
+        });
+      }, delay);
+
+      return () => clearTimeout(timer);
+    }
+
+    // Default timing for other formats
     const timings = [1500, 1800, 1500, 2500];
     const timer = setTimeout(() => {
       setStep((prev) => (prev + 1) % 4);
     }, timings[step]);
 
     return () => clearTimeout(timer);
-  }, [step, isAnimating, activeFormat]);
+  }, [step, isAnimating, activeFormat, isGenerating]);
 
   // Auto-play carousel (switch formats)
   useEffect(() => {
@@ -46,8 +75,16 @@ export default function CarouselDemo() {
   const goToFormat = (format: AdFormat) => {
     setActiveFormat(format);
     setStep(0);
+    setIsGenerating(false);
     setIsAutoPlay(false);
     setTimeout(() => setIsAutoPlay(true), 15000); // Resume auto-play after 15s
+  };
+
+  const handleGenerateSong = () => {
+    // Start a fresh generation cycle for the Generation format
+    setIsGenerating(true);
+    setStep(0); // Start at generation state, effect will move to ad after a short delay
+    setIsAutoPlay(false); // Pause carousel while this flow plays out
   };
 
   const nextFormat = () => {
@@ -152,18 +189,34 @@ export default function CarouselDemo() {
                   </div>
                 </div>
                 
-                <button className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                  Generate Song
+                <button 
+                  onClick={handleGenerateSong}
+                  disabled={isGenerating}
+                  className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed text-white font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2"
+                >
+                  {isGenerating ? (
+                    <>
+                      <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Generating...
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                      Generate Song
+                    </>
+                  )}
                 </button>
-                <p className="text-xs text-gray-500 mt-2">User Input</p>
+                <p className="text-xs text-gray-500 mt-2">Click to generate</p>
               </div>
             </div>
           )}
 
-          {/* Processing Indicator - For Generation, show BLURRED BACKGROUND with FOREGROUND AD */}
+          {/* Processing Indicator - For Generation, show BLURRED BACKGROUND then FOREGROUND AD */}
           {activeFormat !== 'generation' ? (
             <div
               className={`transition-all duration-500 flex items-center gap-3 ml-14 ${
@@ -177,11 +230,34 @@ export default function CarouselDemo() {
               </div>
               <span className="text-sm text-gray-400">AI is thinking...</span>
             </div>
-          ) : (
+          ) : isGenerating && step === 0 ? (
+            // Pure generation state (no ad yet)
+            <div
+              className={`transition-all duration-500 ${
+                step === 0 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+            >
+              <div className="glass-effect rounded-2xl p-6 mb-6 flex items-center gap-4">
+                <div className="relative">
+                  <svg className="w-10 h-10 animate-spin text-purple-500" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <p className="text-white font-semibold mb-1">Generating your song...</p>
+                  <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden">
+                    <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-full rounded-full animate-pulse" style={{ width: '45%' }}></div>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">Preparing your tracks before showing a short ad</p>
+                </div>
+              </div>
+            </div>
+          ) : isGenerating && step === 1 ? (
             /* Full-screen Ad Overlay with Blurred Background */
             <div
               className={`transition-all duration-500 ${
-                step >= 1 && step < 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                step === 1 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
               }`}
             >
               <div className="relative min-h-[600px] flex items-center justify-center">
@@ -198,7 +274,7 @@ export default function CarouselDemo() {
                       <div className="flex-1">
                         <p className="text-white font-semibold">Generating your song...</p>
                         <div className="w-full bg-white/10 rounded-full h-2">
-                          <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-full rounded-full" style={{ width: '60%' }}></div>
+                          <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-full rounded-full" style={{ width: '70%' }}></div>
                         </div>
                       </div>
                     </div>
@@ -284,9 +360,9 @@ export default function CarouselDemo() {
               </div>
               <p className="text-xs text-gray-500 mt-4 text-center">Video ad displays while song generates in blurred background</p>
             </div>
-          )}
+          ) : null}
 
-          {/* AI Response or Generated Content */}
+          {/* AI Response or Generated Songs as Cards */}
           {activeFormat !== 'generation' ? (
             <div
               className={`transition-all duration-500 ${
@@ -366,53 +442,62 @@ export default function CarouselDemo() {
                 </div>
               </div>
             </div>
-          ) : (
-            /* Generated Song Result */
+          ) : step >= 2 ? (
+            /* Generated Songs as Card Blocks (Suno-style) */
             <div
               className={`transition-all duration-500 ${
                 step >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               }`}
             >
-              <div className="glass-effect rounded-2xl p-6 mb-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-                      <svg className="w-6 h-6 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                        <path d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-                      </svg>
+              <div className="mb-4">
+                <h3 className="text-lg font-semibold text-white mb-3">Your songs are ready</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Song Card 1 */}
+                  <div className="group cursor-pointer">
+                    <div className="relative aspect-square rounded-2xl overflow-hidden mb-3 bg-gradient-to-br from-pink-400 via-purple-400 to-blue-400">
+                      {/* Play Button Overlay */}
+                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all flex items-center justify-center">
+                        <div className="w-16 h-16 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center transform group-hover:scale-110 transition-transform">
+                          <svg className="w-8 h-8 text-gray-900 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z" />
+                          </svg>
+                        </div>
+                      </div>
+                      
+                      {/* Duration Badge */}
+                      <div className="absolute bottom-3 right-3 px-2 py-1 bg-black/50 backdrop-blur-sm rounded-full text-xs text-white font-semibold">
+                        3:24
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-white font-bold">Love's Sweet Melody</h4>
-                      <p className="text-sm text-gray-400">Romantic Ballad • 3:24</p>
-                    </div>
+                    <h4 className="text-white font-semibold mb-1 group-hover:text-primary-400 transition-colors">Love's Sweet Melody</h4>
+                    <p className="text-sm text-gray-400">Romantic Ballad</p>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <button className="w-10 h-10 rounded-full bg-primary-600 hover:bg-primary-500 flex items-center justify-center transition-colors">
-                      <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </button>
+
+                  {/* Song Card 2 */}
+                  <div className="group cursor-pointer">
+                    <div className="relative aspect-square rounded-2xl overflow-hidden mb-3 bg-gradient-to-br from-green-400 via-yellow-400 to-orange-400">
+                      {/* Play Button Overlay */}
+                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all flex items-center justify-center">
+                        <div className="w-16 h-16 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center transform group-hover:scale-110 transition-transform">
+                          <svg className="w-8 h-8 text-gray-900 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z" />
+                          </svg>
+                        </div>
+                      </div>
+                      
+                      {/* Duration Badge */}
+                      <div className="absolute bottom-3 right-3 px-2 py-1 bg-black/50 backdrop-blur-sm rounded-full text-xs text-white font-semibold">
+                        3:18
+                      </div>
+                    </div>
+                    <h4 className="text-white font-semibold mb-1 group-hover:text-primary-400 transition-colors">Hearts Together</h4>
+                    <p className="text-sm text-gray-400">Valentine's Special</p>
                   </div>
                 </div>
-                
-                {/* Waveform Visualization */}
-                <div className="flex items-center gap-1 h-12 mb-3">
-                  {[...Array(40)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="flex-1 bg-gradient-to-t from-purple-500 to-pink-500 rounded-full opacity-70"
-                      style={{
-                        height: `${Math.random() * 100}%`,
-                        minHeight: '20%',
-                      }}
-                    ></div>
-                  ))}
-                </div>
-                
-                <p className="text-xs text-gray-500">Song Generated Successfully</p>
+                <p className="text-xs text-gray-500 mt-4">Songs generated successfully • Click to play</p>
               </div>
             </div>
-          )}
+          ) : null}
 
           {/* Sponsored Ads - Different Formats */}
           <div

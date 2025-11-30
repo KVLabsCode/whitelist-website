@@ -17,25 +17,96 @@ export default function Home() {
         {/* Hero Section */}
         <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
           {/* Background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary-900/20 via-transparent to-accent-900/20 pointer-events-none"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-700/25 via-slate-900/40 to-accent-700/25 pointer-events-none"></div>
 
           <div className="max-w-7xl mx-auto relative z-10">
-            <div className="text-center max-w-4xl mx-auto mb-12">
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 animate-fade-in leading-tight">
-                Monetize Your
-                <br />
-                <span className="gradient-text">AI Solutions</span>
-              </h1>
-              <p className="text-xl sm:text-2xl text-gray-300 mb-8 animate-slide-up max-w-3xl mx-auto">
-                Seamless, contextual ads that turn AI conversations into revenue without breaking the user experience
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
-                <Link href="/waitlist" className="btn-primary text-lg px-8 py-4">
-                  Get Started
-                </Link>
-                <Link href="/docs" className="btn-secondary text-lg px-8 py-4">
-                  View Docs
-                </Link>
+            <div className="grid gap-12 lg:grid-cols-2 items-center">
+              {/* Hero Copy */}
+              <div className="text-center lg:text-left max-w-xl mx-auto lg:mx-0">
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 animate-fade-in leading-tight">
+                  Monetize Your
+                  <br />
+                  <span className="gradient-text">AI Solutions</span>
+                </h1>
+                <p className="text-xl sm:text-2xl text-gray-200 mb-8 animate-slide-up max-w-xl">
+                  Seamless, contextual ads that turn AI conversations into revenue without breaking the user experience.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-slide-up">
+                  <Link href="/waitlist" className="btn-primary text-lg px-8 py-4">
+                    Get Started
+                  </Link>
+                  <Link href="/docs" className="btn-secondary text-lg px-8 py-4">
+                    View Docs
+                  </Link>
+                </div>
+              </div>
+
+              {/* Chat Monetization Preview */}
+              <div className="hidden lg:block">
+                <div className="relative max-w-md ml-auto animate-float">
+                  {/* Glow */}
+                  <div className="absolute -inset-10 bg-gradient-to-br from-primary-500/20 via-accent-500/15 to-emerald-400/10 blur-3xl"></div>
+
+                  <div className="relative space-y-4">
+                    {/* User message */}
+                    <div className="flex justify-start">
+                      <div className="max-w-[80%] rounded-2xl rounded-bl-sm bg-white/10 border border-white/15 px-4 py-3 shadow-lg">
+                        <p className="text-sm text-gray-100">
+                          “I need a simple way to track my startup’s runway and burn rate.”
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* AI response */}
+                    <div className="flex justify-end">
+                      <div className="max-w-[80%] rounded-2xl rounded-br-sm bg-slate-900/90 border border-primary-500/40 px-4 py-3 shadow-lg">
+                        <p className="text-sm text-gray-100 mb-1">
+                          You can use a lightweight finance dashboard that auto-updates from your bank and payroll.
+                        </p>
+                        <p className="text-xs text-primary-300">Powered by your AI assistant</p>
+                      </div>
+                    </div>
+
+                    {/* Sponsored Ad inside chat */}
+                    <div className="flex justify-end">
+                      <div className="max-w-[80%] rounded-2xl bg-gradient-to-br from-emerald-500/15 via-primary-500/10 to-accent-500/15 border border-emerald-400/40 px-4 py-3 shadow-xl">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="px-2 py-0.5 text-[10px] font-semibold rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/40">
+                            SPONSORED
+                          </span>
+                          <span className="text-xs text-gray-400">Matched to this conversation in real time</span>
+                        </div>
+                        <p className="text-sm text-gray-100 font-medium mb-1">
+                          Try FlowFinance – automated runway tracking for SaaS startups.
+                        </p>
+                        <p className="text-xs text-gray-300 mb-3">
+                          Connect Stripe, bank accounts, and payroll in under 5 minutes.
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-xs text-gray-400">flowfinance.ai</p>
+                            <p className="text-xs text-emerald-300 font-semibold">+42% higher LTV from AdInfra traffic</p>
+                          </div>
+                          <button className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500 hover:bg-emerald-400 text-gray-900 transition-colors">
+                            Learn more
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Small metrics strip */}
+                    <div className="mt-4 flex items-center gap-4 text-xs text-gray-400">
+                      <div className="flex items-center gap-1">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                        <span>94% session retention</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span className="w-2 h-2 rounded-full bg-primary-400"></span>
+                        <span>+3.2x click‑through on sponsored answers</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
