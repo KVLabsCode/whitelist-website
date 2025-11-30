@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from 'react';
 
-type AdFormat = 'inline' | 'followup' | 'card';
+type AdFormat = 'inline' | 'followup' | 'card' | 'generation';
 
 const formats = [
   { id: 'inline' as AdFormat, name: 'Inline Ads', description: 'Rich contextual ads within responses' },
   { id: 'followup' as AdFormat, name: 'Follow-up Questions', description: 'Sponsored question suggestions' },
   { id: 'card' as AdFormat, name: 'Card Format', description: 'Lead generation cards' },
+  { id: 'generation' as AdFormat, name: 'Generation Ads', description: 'Ads during AI generation (non-chat)' },
 ];
 
 export default function CarouselDemo() {
@@ -37,7 +38,7 @@ export default function CarouselDemo() {
       const nextIndex = (currentIndex + 1) % formats.length;
       setActiveFormat(formats[nextIndex].id);
       setStep(0);
-    }, 12000); // Switch format every 12 seconds
+    }, 14000); // Switch format every 14 seconds (longer for 4 formats)
 
     return () => clearTimeout(carouselTimer);
   }, [activeFormat, isAutoPlay]);
@@ -104,122 +105,270 @@ export default function CarouselDemo() {
         </button>
 
         <div className="relative z-10 space-y-6">
-          {/* User Query */}
-          <div
-            className={`transition-all duration-500 ${
-              step >= 0 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            }`}
-          >
-            <div className="flex items-start gap-4 mb-6">
-              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-semibold">
-                U
-              </div>
-              <div className="flex-1">
-                <div className="bg-white/5 border border-white/10 rounded-2xl rounded-tl-none p-4 backdrop-blur-sm">
-                  <p className="text-gray-200 text-lg">
-                    {activeFormat === 'inline' && 'What are the best running shoes for marathon training?'}
-                    {activeFormat === 'followup' && 'How do I start learning web development?'}
-                    {activeFormat === 'card' && 'What are the top productivity apps for 2024?'}
-                  </p>
+          {/* User Query - Different for Generation Format */}
+          {activeFormat !== 'generation' ? (
+            <div
+              className={`transition-all duration-500 ${
+                step >= 0 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+            >
+              <div className="flex items-start gap-4 mb-6">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-semibold">
+                  U
                 </div>
-                <p className="text-xs text-gray-500 mt-2 ml-2">User Query</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Processing Indicator */}
-          <div
-            className={`transition-all duration-500 flex items-center gap-3 ml-14 ${
-              step >= 1 && step < 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-            }`}
-          >
-            <div className="flex gap-1">
-              <div className="w-2 h-2 bg-primary-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-              <div className="w-2 h-2 bg-primary-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-              <div className="w-2 h-2 bg-primary-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
-            </div>
-            <span className="text-sm text-gray-400">AI is thinking...</span>
-          </div>
-
-          {/* AI Response */}
-          <div
-            className={`transition-all duration-500 ${
-              step >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            }`}
-          >
-            <div className="flex items-start gap-4 mb-6">
-              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-semibold shadow-lg shadow-purple-500/30">
-                AI
-              </div>
-              <div className="flex-1">
-                <div className="bg-gradient-to-br from-white/10 to-white/5 border border-white/10 rounded-2xl rounded-tl-none p-5 backdrop-blur-sm">
-                  {activeFormat === 'inline' && (
-                    <>
-                      <p className="text-gray-200 leading-relaxed mb-4">
-                        For marathon training, you'll want shoes with excellent cushioning and support. 
-                        Here are the top recommendations:
-                      </p>
-                      <ul className="space-y-2 text-gray-300">
-                        <li className="flex items-start gap-2">
-                          <span className="text-primary-400 mt-1">•</span>
-                          <span><strong className="text-white">Nike ZoomX Vaporfly</strong> - Elite racing shoe with carbon plate</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-primary-400 mt-1">•</span>
-                          <span><strong className="text-white">ASICS Gel-Nimbus 25</strong> - Maximum cushioning</span>
-                        </li>
-                      </ul>
-                    </>
-                  )}
-                  
-                  {activeFormat === 'followup' && (
-                    <>
-                      <p className="text-gray-200 leading-relaxed mb-4">
-                        Great question! Here's a beginner-friendly roadmap for web development:
-                      </p>
-                      <ul className="space-y-2 text-gray-300 mb-4">
-                        <li className="flex items-start gap-2">
-                          <span className="text-primary-400 mt-1">1.</span>
-                          <span><strong className="text-white">HTML & CSS</strong> - Start with the fundamentals</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-primary-400 mt-1">2.</span>
-                          <span><strong className="text-white">JavaScript</strong> - Learn programming basics</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-primary-400 mt-1">3.</span>
-                          <span><strong className="text-white">React or Vue</strong> - Modern frameworks</span>
-                        </li>
-                      </ul>
-                    </>
-                  )}
-                  
-                  {activeFormat === 'card' && (
-                    <>
-                      <p className="text-gray-200 leading-relaxed mb-4">
-                        Here are the top productivity apps that can help you stay organized and efficient:
-                      </p>
-                      <ul className="space-y-2 text-gray-300">
-                        <li className="flex items-start gap-2">
-                          <span className="text-primary-400 mt-1">•</span>
-                          <span><strong className="text-white">Notion</strong> - All-in-one workspace</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-primary-400 mt-1">•</span>
-                          <span><strong className="text-white">Todoist</strong> - Task management</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-primary-400 mt-1">•</span>
-                          <span><strong className="text-white">RescueTime</strong> - Time tracking</span>
-                        </li>
-                      </ul>
-                    </>
-                  )}
+                <div className="flex-1">
+                  <div className="bg-white/5 border border-white/10 rounded-2xl rounded-tl-none p-4 backdrop-blur-sm">
+                    <p className="text-gray-200 text-lg">
+                      {activeFormat === 'inline' && 'What are the best running shoes for marathon training?'}
+                      {activeFormat === 'followup' && 'How do I start learning web development?'}
+                      {activeFormat === 'card' && 'What are the top productivity apps for 2024?'}
+                    </p>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-2 ml-2">User Query</p>
                 </div>
-                <p className="text-xs text-gray-500 mt-2 ml-2">AI Response</p>
               </div>
             </div>
-          </div>
+          ) : (
+            /* Music Generation Interface */
+            <div
+              className={`transition-all duration-500 ${
+                step >= 0 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+            >
+              <div className="glass-effect rounded-2xl p-6 mb-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                    <svg className="w-6 h-6 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold text-white">AI Music Studio</h3>
+                </div>
+                
+                <div className="mb-4">
+                  <label className="text-sm text-gray-400 mb-2 block">Describe your song</label>
+                  <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                    <p className="text-gray-200">Create a romantic love song for Valentine's Day</p>
+                  </div>
+                </div>
+                
+                <button className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                  Generate Song
+                </button>
+                <p className="text-xs text-gray-500 mt-2">User Input</p>
+              </div>
+            </div>
+          )}
+
+          {/* Processing Indicator - For Generation, show AD instead */}
+          {activeFormat !== 'generation' ? (
+            <div
+              className={`transition-all duration-500 flex items-center gap-3 ml-14 ${
+                step >= 1 && step < 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+              }`}
+            >
+              <div className="flex gap-1">
+                <div className="w-2 h-2 bg-primary-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                <div className="w-2 h-2 bg-primary-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                <div className="w-2 h-2 bg-primary-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+              </div>
+              <span className="text-sm text-gray-400">AI is thinking...</span>
+            </div>
+          ) : (
+            /* Valentine's Day Ad DURING Generation */
+            <div
+              className={`transition-all duration-500 ${
+                step >= 1 && step < 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+              }`}
+            >
+              <div className="relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-red-500 to-pink-500 rounded-3xl opacity-75 group-hover:opacity-100 blur-xl transition duration-500 animate-gradient-x"></div>
+                
+                <div className="relative bg-gradient-to-br from-gray-900 to-black rounded-3xl overflow-hidden border border-pink-500/40 shadow-2xl">
+                  {/* Generating badge */}
+                  <div className="absolute top-4 right-4 px-3 py-1.5 bg-purple-500/20 backdrop-blur-sm border border-purple-400/30 rounded-full flex items-center gap-2">
+                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+                    <span className="text-xs font-semibold text-purple-300">Generating in background...</span>
+                  </div>
+
+                  <div className="p-8">
+                    <span className="px-3 py-1.5 bg-gradient-to-r from-pink-500/20 to-red-500/20 border border-pink-500/30 rounded-full text-xs font-bold text-pink-300 inline-block mb-4">
+                      SPONSORED
+                    </span>
+                    
+                    <div className="flex gap-6 mb-6">
+                      <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-pink-500 to-red-500 flex items-center justify-center flex-shrink-0 shadow-lg shadow-pink-500/50">
+                        <svg className="w-14 h-14 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        </svg>
+                      </div>
+                      
+                      <div className="flex-1">
+                        <h3 className="text-3xl font-bold text-white mb-3">
+                          Valentine's Day Sale
+                        </h3>
+                        <p className="text-xl text-pink-400 font-bold mb-3">
+                          40% Off All Gifts 💝
+                        </p>
+                        <p className="text-gray-300 leading-relaxed mb-4">
+                          Express your love with personalized jewelry, premium chocolates, fresh flowers & romantic experiences.
+                        </p>
+                        <div className="flex items-center gap-3 text-pink-400 font-semibold">
+                          <svg className="w-5 h-5 animate-pulse" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <span>Sale ends in 3 days - Shop now!</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <button className="w-full px-6 py-4 bg-gradient-to-r from-pink-600 to-red-600 hover:from-pink-500 hover:to-red-500 text-white text-lg font-bold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/50 flex items-center justify-center gap-3 group">
+                      <span>Shop Valentine's Collection</span>
+                      <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                      </svg>
+                    </button>
+                    
+                    <p className="text-center text-xs text-gray-500 mt-3">
+                      Ad by LoveGifts.com
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <p className="text-xs text-gray-500 mt-3 text-center">Ad displays while AI generates your song</p>
+            </div>
+          )}
+
+          {/* AI Response or Generated Content */}
+          {activeFormat !== 'generation' ? (
+            <div
+              className={`transition-all duration-500 ${
+                step >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+            >
+              <div className="flex items-start gap-4 mb-6">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-semibold shadow-lg shadow-purple-500/30">
+                  AI
+                </div>
+                <div className="flex-1">
+                  <div className="bg-gradient-to-br from-white/10 to-white/5 border border-white/10 rounded-2xl rounded-tl-none p-5 backdrop-blur-sm">
+                    {activeFormat === 'inline' && (
+                      <>
+                        <p className="text-gray-200 leading-relaxed mb-4">
+                          For marathon training, you'll want shoes with excellent cushioning and support. 
+                          Here are the top recommendations:
+                        </p>
+                        <ul className="space-y-2 text-gray-300">
+                          <li className="flex items-start gap-2">
+                            <span className="text-primary-400 mt-1">•</span>
+                            <span><strong className="text-white">Nike ZoomX Vaporfly</strong> - Elite racing shoe with carbon plate</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-primary-400 mt-1">•</span>
+                            <span><strong className="text-white">ASICS Gel-Nimbus 25</strong> - Maximum cushioning</span>
+                          </li>
+                        </ul>
+                      </>
+                    )}
+                    
+                    {activeFormat === 'followup' && (
+                      <>
+                        <p className="text-gray-200 leading-relaxed mb-4">
+                          Great question! Here's a beginner-friendly roadmap for web development:
+                        </p>
+                        <ul className="space-y-2 text-gray-300 mb-4">
+                          <li className="flex items-start gap-2">
+                            <span className="text-primary-400 mt-1">1.</span>
+                            <span><strong className="text-white">HTML & CSS</strong> - Start with the fundamentals</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-primary-400 mt-1">2.</span>
+                            <span><strong className="text-white">JavaScript</strong> - Learn programming basics</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-primary-400 mt-1">3.</span>
+                            <span><strong className="text-white">React or Vue</strong> - Modern frameworks</span>
+                          </li>
+                        </ul>
+                      </>
+                    )}
+                    
+                    {activeFormat === 'card' && (
+                      <>
+                        <p className="text-gray-200 leading-relaxed mb-4">
+                          Here are the top productivity apps that can help you stay organized and efficient:
+                        </p>
+                        <ul className="space-y-2 text-gray-300">
+                          <li className="flex items-start gap-2">
+                            <span className="text-primary-400 mt-1">•</span>
+                            <span><strong className="text-white">Notion</strong> - All-in-one workspace</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-primary-400 mt-1">•</span>
+                            <span><strong className="text-white">Todoist</strong> - Task management</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-primary-400 mt-1">•</span>
+                            <span><strong className="text-white">RescueTime</strong> - Time tracking</span>
+                          </li>
+                        </ul>
+                      </>
+                    )}
+                  </div>
+                  <p className="text-xs text-gray-500 mt-2 ml-2">AI Response</p>
+                </div>
+              </div>
+            </div>
+          ) : (
+            /* Generated Song Result */
+            <div
+              className={`transition-all duration-500 ${
+                step >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+            >
+              <div className="glass-effect rounded-2xl p-6 mb-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-white font-bold">Love's Sweet Melody</h4>
+                      <p className="text-sm text-gray-400">Romantic Ballad • 3:24</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button className="w-10 h-10 rounded-full bg-primary-600 hover:bg-primary-500 flex items-center justify-center transition-colors">
+                      <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                
+                {/* Waveform Visualization */}
+                <div className="flex items-center gap-1 h-12 mb-3">
+                  {[...Array(40)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="flex-1 bg-gradient-to-t from-purple-500 to-pink-500 rounded-full opacity-70"
+                      style={{
+                        height: `${Math.random() * 100}%`,
+                        minHeight: '20%',
+                      }}
+                    ></div>
+                  ))}
+                </div>
+                
+                <p className="text-xs text-gray-500">Song Generated Successfully</p>
+              </div>
+            </div>
+          )}
 
           {/* Sponsored Ads - Different Formats */}
           <div
@@ -387,6 +536,7 @@ export default function CarouselDemo() {
               {activeFormat === 'inline' && 'Inline Sponsored Ad'}
               {activeFormat === 'followup' && 'Follow-up Question Ad Format'}
               {activeFormat === 'card' && 'Card Format Sponsored Ad'}
+              {activeFormat === 'generation' && 'Contextual Ad During Generation'}
             </p>
           </div>
         </div>
