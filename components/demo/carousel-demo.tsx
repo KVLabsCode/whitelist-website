@@ -102,41 +102,41 @@ export default function CarouselDemo() {
   return (
     <div className="relative max-w-full sm:max-w-3xl lg:max-w-6xl mx-auto px-2 sm:px-0">
       {/* Format Indicator */}
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-3 glass-effect rounded-full px-6 py-3">
-          <div className="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></div>
-          <span className="text-sm font-semibold text-white">
+      <div className="text-center mb-6 sm:mb-8">
+        <div className="inline-flex items-center gap-2 sm:gap-3 glass-effect rounded-full px-4 sm:px-6 py-2 sm:py-3 max-w-full">
+          <div className="w-2 h-2 rounded-full bg-primary-500 animate-pulse flex-shrink-0"></div>
+          <span className="text-xs sm:text-sm font-semibold text-white truncate">
             {formats.find(f => f.id === activeFormat)?.name}
           </span>
-          <span className="text-xs text-gray-400">
+          <span className="hidden sm:inline text-xs text-gray-400 truncate">
             {formats.find(f => f.id === activeFormat)?.description}
           </span>
         </div>
       </div>
 
       {/* Demo Container */}
-      <div className="glass-effect rounded-3xl p-6 sm:p-8 md:p-12 relative overflow-hidden">
+      <div className="glass-effect rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-12 relative overflow-hidden">
         {/* Background glow effects */}
         <div className="absolute -top-20 -right-20 w-64 h-64 bg-primary-500/20 rounded-full blur-3xl"></div>
         <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-accent-500/20 rounded-full blur-3xl"></div>
 
-        {/* Navigation Arrows (hidden on very small screens, rely on dots) */}
+        {/* Navigation Arrows - visible on all screens but positioned better on mobile */}
         <button
           onClick={prevFormat}
-          className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 lg:w-12 lg:h-12 glass-effect hover:bg-white/20 rounded-full items-center justify-center text-white transition-all duration-300 group"
+          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 lg:w-12 lg:h-12 glass-effect hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all duration-300 group shadow-lg"
           aria-label="Previous format"
         >
-          <svg className="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
             <path d="M15 19l-7-7 7-7" />
           </svg>
         </button>
 
         <button
           onClick={nextFormat}
-          className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 lg:w-12 lg:h-12 glass-effect hover:bg-white/20 rounded-full items-center justify-center text-white transition-all duration-300 group"
+          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 lg:w-12 lg:h-12 glass-effect hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all duration-300 group shadow-lg"
           aria-label="Next format"
         >
-          <svg className="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
             <path d="M9 5l7 7-7 7" />
           </svg>
         </button>
@@ -149,13 +149,13 @@ export default function CarouselDemo() {
                 step >= 0 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               }`}
             >
-              <div className="flex items-start gap-4 mb-6">
-                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-semibold">
+              <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-6">
+                <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white text-sm sm:text-base font-semibold">
                   U
                 </div>
-                <div className="flex-1">
-                  <div className="bg-white/5 border border-white/10 rounded-2xl rounded-tl-none p-4 backdrop-blur-sm">
-                    <p className="text-gray-200 text-lg">
+                <div className="flex-1 min-w-0">
+                  <div className="bg-white/5 border border-white/10 rounded-2xl rounded-tl-none p-3 sm:p-4 backdrop-blur-sm">
+                    <p className="text-gray-200 text-sm sm:text-base lg:text-lg">
                       {activeFormat === 'inline' && 'What are the best running shoes for marathon training?'}
                       {activeFormat === 'followup' && 'How do I start learning web development?'}
                       {activeFormat === 'card' && 'What are the top productivity apps for 2024?'}
@@ -670,32 +670,32 @@ export default function CarouselDemo() {
           </div>
         </div>
 
-        {/* Play/Pause Control */}
-        <div className="mt-8 flex items-center justify-center gap-4">
+        {/* Play/Pause Control - Simplified for mobile */}
+        <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
           <button
             onClick={() => setIsAnimating(!isAnimating)}
-            className="px-4 py-2 glass-effect hover:bg-white/10 rounded-lg text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 flex items-center gap-2"
+            className="w-full sm:w-auto px-4 py-2 glass-effect hover:bg-white/10 rounded-lg text-xs sm:text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 flex items-center justify-center gap-2"
           >
             {isAnimating ? (
               <>
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
                 </svg>
-                Pause
+                <span>Pause</span>
               </>
             ) : (
               <>
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z" />
                 </svg>
-                Play
+                <span>Play</span>
               </>
             )}
           </button>
           
           <button
             onClick={() => setIsAutoPlay(!isAutoPlay)}
-            className="px-4 py-2 glass-effect hover:bg-white/10 rounded-lg text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 flex items-center gap-2"
+            className="w-full sm:w-auto px-4 py-2 glass-effect hover:bg-white/10 rounded-lg text-xs sm:text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 flex items-center justify-center gap-2"
           >
             {isAutoPlay ? (
               <>
@@ -703,37 +703,39 @@ export default function CarouselDemo() {
                   <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   <path d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
                 </svg>
-                Auto-play On
+                <span className="hidden sm:inline">Auto-play On</span>
+                <span className="sm:hidden">Auto On</span>
               </>
             ) : (
               <>
                 <svg className="w-4 h-4" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
                   <path d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                Auto-play Off
+                <span className="hidden sm:inline">Auto-play Off</span>
+                <span className="sm:hidden">Auto Off</span>
               </>
             )}
           </button>
         </div>
       </div>
 
-      {/* Carousel Dots */}
-      <div className="flex justify-center gap-3 mt-8">
+      {/* Carousel Dots - Improved for mobile */}
+      <div className="flex justify-center gap-2 sm:gap-3 mt-6 sm:mt-8 flex-wrap px-4">
         {formats.map((format) => (
           <button
             key={format.id}
             onClick={() => goToFormat(format.id)}
-            className="group flex flex-col items-center gap-2"
+            className="group flex flex-col items-center gap-1 sm:gap-2"
           >
             <div
               className={`transition-all duration-300 rounded-full ${
                 activeFormat === format.id
-                  ? 'w-12 h-2 bg-primary-500'
+                  ? 'w-10 sm:w-12 h-2 bg-primary-500'
                   : 'w-2 h-2 bg-gray-600 hover:bg-gray-500'
               }`}
             />
             {activeFormat === format.id && (
-              <span className="text-xs text-gray-400 font-medium">{format.name}</span>
+              <span className="text-xs text-gray-400 font-medium text-center max-w-[80px] sm:max-w-none">{format.name}</span>
             )}
           </button>
         ))}

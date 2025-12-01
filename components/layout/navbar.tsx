@@ -47,13 +47,6 @@ export default function Navbar() {
                             }`}>
                                 Features
                             </Link>
-                            <Link href="/case-studies" className={`transition-colors ${
-                                shouldBeTransparent
-                                    ? 'text-white/90 hover:text-white'
-                                    : 'text-gray-300 hover:text-white'
-                            }`}>
-                                Case Studies
-                            </Link>
                             <Link href="/docs" className={`transition-colors ${
                                 shouldBeTransparent
                                     ? 'text-white/90 hover:text-white'
@@ -109,59 +102,48 @@ export default function Navbar() {
                     </button>
                 </div>
 
-                {/* Mobile menu */}
+                {/* Mobile menu - Improved with better spacing and touch targets */}
                 {isMenuOpen && (
-                    <div className={`md:hidden py-4 space-y-4 animate-fade-in ${
+                    <div className={`md:hidden py-4 space-y-2 animate-fade-in ${
                         shouldBeTransparent
-                            ? 'bg-black/40 backdrop-blur-md rounded-b-xl'
-                            : ''
+                            ? 'bg-black/90 backdrop-blur-xl rounded-b-xl border-t border-white/10'
+                            : 'bg-slate-900/95 backdrop-blur-xl border-t border-white/10'
                     }`}>
                         <Link
                             href="/#features"
-                            className={`block transition-colors ${
+                            className={`block px-4 py-3 mx-2 rounded-lg transition-all ${
                                 shouldBeTransparent
-                                    ? 'text-white/90 hover:text-white'
-                                    : 'text-gray-300 hover:text-white'
+                                    ? 'text-white/90 hover:text-white hover:bg-white/10'
+                                    : 'text-gray-300 hover:text-white hover:bg-white/10'
                             }`}
                             onClick={() => setIsMenuOpen(false)}
                         >
                             Features
                         </Link>
                         <Link
-                            href="/case-studies"
-                            className={`block transition-colors ${
-                                shouldBeTransparent
-                                    ? 'text-white/90 hover:text-white'
-                                    : 'text-gray-300 hover:text-white'
-                            }`}
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            Case Studies
-                        </Link>
-                        <Link
                             href="/docs"
-                            className={`block transition-colors ${
+                            className={`block px-4 py-3 mx-2 rounded-lg transition-all ${
                                 shouldBeTransparent
-                                    ? 'text-white/90 hover:text-white'
-                                    : 'text-gray-300 hover:text-white'
+                                    ? 'text-white/90 hover:text-white hover:bg-white/10'
+                                    : 'text-gray-300 hover:text-white hover:bg-white/10'
                             }`}
                             onClick={() => setIsMenuOpen(false)}
                         >
                             Docs
                         </Link>
-                        <div className="flex gap-3">
+                        <div className="pt-3 mt-2 border-t border-white/10 space-y-2 px-2">
                             <a
                                 href="https://chat-ad-network.vercel.app/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex-1 btn-secondary text-center"
+                                className="block w-full btn-secondary text-center py-3.5 text-base"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 Dashboard
                             </a>
                             <Link
                                 href="/waitlist"
-                                className="flex-1 btn-primary text-center"
+                                className="block w-full btn-primary text-center py-3.5 text-base"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 Join Waitlist

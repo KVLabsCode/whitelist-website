@@ -50,11 +50,11 @@ export default function Footer() {
                                     Dashboard
                                 </a>
                             </li>
-                            <li>
+                            {/* <li>
                                 <Link href="/case-studies" className="text-gray-400 hover:text-white transition-colors text-sm">
                                     Case Studies
                                 </Link>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
 

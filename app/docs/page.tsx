@@ -65,54 +65,11 @@ export default function DocsPage() {
   return (
     <>
       <Navbar />
-      {/* Mobile Menu Button */}
-      <button
-        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className="lg:hidden fixed top-20 left-4 z-50 p-2 glass-effect rounded-lg border border-white/10"
-        aria-label="Toggle menu"
-      >
-        <svg className="w-6 h-6 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-          {isMobileMenuOpen ? (
-            <path d="M6 18L18 6M6 6l12 12" />
-          ) : (
-            <path d="M4 6h16M4 12h16M4 18h16" />
-          )}
-        </svg>
-      </button>
-
-      {/* Mobile Sidebar */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-40 bg-black/80 backdrop-blur-sm" onClick={() => setIsMobileMenuOpen(false)}>
-          <aside className="w-64 h-full bg-black/95 border-r border-white/10 overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-            <div className="p-6 pt-20">
-              <nav className="space-y-1">
-                {sidebarItems.map((item) => (
-                  <a
-                    key={item.id}
-                    href={item.href}
-                    onClick={() => {
-                      setActiveSection(item.id);
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className={`block px-4 py-2.5 rounded-lg transition-colors text-sm ${
-                      activeSection === item.id
-                        ? 'bg-primary-500/20 text-primary-400 border-l-2 border-primary-500'
-                        : 'text-gray-400 hover:text-white hover:bg-white/5'
-                    }`}
-                  >
-                    {item.title}
-                  </a>
-                ))}
-              </nav>
-            </div>
-          </aside>
-        </div>
-      )}
-
+      
       <main className="min-h-screen pt-16">
         <div className="flex">
-          {/* Fixed Desktop Sidebar */}
-          <aside className="hidden lg:block w-64 flex-shrink-0 fixed left-0 top-16 h-[calc(100vh-4rem)] overflow-y-auto border-r border-white/10 bg-black/50 backdrop-blur-sm z-40">
+          {/* Fixed Desktop Sidebar - Only visible on large screens */}
+          <aside className="hidden lg:block w-64 flex-shrink-0 fixed left-0 top-16 h-[calc(100vh-4rem)] overflow-y-auto border-r border-white/10 bg-black/50 backdrop-blur-sm z-20">
             <div className="p-6">
               <nav className="space-y-1">
                 {sidebarItems.map((item) => (
@@ -134,50 +91,101 @@ export default function DocsPage() {
           </aside>
 
           {/* Scrollable Main Content */}
-          <div className="flex-1 lg:ml-64">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-              <div className="prose prose-invert max-w-none">
+          <div className="flex-1 lg:ml-64 w-full">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16">
+              <div className="prose prose-invert max-w-none break-words">
+                {/* Mobile Table of Contents - inline and centered with content */}
+                <div className="lg:hidden mb-8">
+                  <button
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    className="w-full flex items-center justify-between p-3 glass-effect rounded-xl border border-white/20 hover:bg-white/10 transition-all"
+                    aria-label="Toggle table of contents"
+                  >
+                    <div className="flex items-center gap-2">
+                      <svg className="w-5 h-5 text-primary-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M4 6h16M4 12h16M4 18h16" />
+                      </svg>
+                      <span className="text-sm font-medium text-white">Table of Contents</span>
+                    </div>
+                    <svg
+                      className={`w-5 h-5 text-gray-400 transition-transform ${isMobileMenuOpen ? 'rotate-180' : ''}`}
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  
+                  {isMobileMenuOpen && (
+                    <div className="mt-3 glass-effect-premium rounded-xl border border-white/20 shadow-2xl overflow-hidden">
+                      <nav className="p-4 space-y-1 max-h-[60vh] overflow-y-auto">
+                        {sidebarItems.map((item) => (
+                          <a
+                            key={item.id}
+                            href={item.href}
+                            onClick={() => {
+                              setActiveSection(item.id);
+                              setIsMobileMenuOpen(false);
+                            }}
+                            className={`block px-4 py-3 rounded-lg transition-all text-sm font-medium ${
+                              activeSection === item.id
+                                ? 'bg-primary-500/20 text-primary-300 border-l-2 border-primary-500'
+                                : 'text-gray-400 hover:text-white hover:bg-white/10'
+                            }`}
+                          >
+                            {item.title}
+                          </a>
+                        ))}
+                      </nav>
+                    </div>
+                  )}
+                </div>
+
                 {/* Getting Started */}
-                <section id="getting-started" className="mb-16 scroll-mt-24">
-                  <h1 className="text-4xl font-bold text-white mb-4">Getting Started</h1>
-                  <p className="text-xl text-gray-300 mb-4">
+                <section id="getting-started" className="mb-12 sm:mb-16 scroll-mt-24">
+                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">Getting Started</h1>
+                  <p className="text-lg sm:text-xl text-gray-300 mb-4 leading-relaxed">
                     Integrate Kovio into your chatbot application with just a few lines of code.
                   </p>
-                  <p className="text-lg text-gray-400 mb-8">
+                  <p className="text-base sm:text-lg text-gray-400 mb-6 sm:mb-8">
                     The Kovio SDK is available for <span className="text-primary-400 font-semibold">React</span> and <span className="text-primary-400 font-semibold">React Native</span> applications.
                   </p>
                 </section>
 
                 {/* Installation */}
-                <section id="installation" className="mb-16 scroll-mt-24">
-                  <h2 className="text-3xl font-bold text-white mb-6">Installation</h2>
-                  <p className="text-gray-300 mb-6">
+                <section id="installation" className="mb-12 sm:mb-16 scroll-mt-24">
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6">Installation</h2>
+                  <p className="text-base sm:text-lg text-gray-300 mb-6">
                     Install the Kovio SDK for React or React Native:
                   </p>
                   
-                  {/* Package Manager Selector */}
+                  {/* Package Manager Selector - Mobile optimized */}
                   <div className="mb-6">
-                    <div className="flex flex-wrap gap-2">
+                    <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2">
                       {packageManagers.map((pm) => (
                         <button
                           key={pm.id}
                           onClick={() => setSelectedPackageManager(pm.id)}
-                          className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+                          className={`flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 sm:py-2 rounded-lg font-medium text-xs sm:text-sm transition-all ${
                             selectedPackageManager === pm.id
-                              ? 'bg-primary-500 text-white'
+                              ? 'bg-primary-500 text-white shadow-lg'
                               : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/10'
                           }`}
                         >
                           <PackageManagerIcon type={pm.icon} />
-                          {pm.name}
+                          <span>{pm.name}</span>
                         </button>
                       ))}
                     </div>
                   </div>
 
-                  {/* Installation Command */}
-                  <div className="glass-effect rounded-xl p-6 overflow-x-auto bg-gray-900/50 border border-white/10">
-                    <pre className="text-sm font-mono">
+                  {/* Installation Command - Better mobile scroll */}
+                  <div className="glass-effect rounded-xl p-4 sm:p-6 overflow-x-auto bg-gray-900/50 border border-white/10">
+                    <pre className="text-xs sm:text-sm font-mono whitespace-pre overflow-x-auto">
                       <code className="text-gray-300">
                         {(() => {
                           const pm = packageManagers.find(pm => pm.id === selectedPackageManager);
@@ -200,13 +208,13 @@ export default function DocsPage() {
                 </section>
 
                 {/* Quick Start */}
-                <section id="quick-start" className="mb-16 scroll-mt-24">
-                  <h2 className="text-3xl font-bold text-white mb-6">Quick Start</h2>
-                  <p className="text-gray-300 mb-4">
+                <section id="quick-start" className="mb-12 sm:mb-16 scroll-mt-24">
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6">Quick Start</h2>
+                  <p className="text-base sm:text-lg text-gray-300 mb-4">
                     Import and use the ChatbotAd component in your application:
                   </p>
-                  <div className="glass-effect rounded-xl p-6 overflow-x-auto bg-gray-900/50 border border-white/10 mb-6">
-                    <pre className="text-sm font-mono leading-relaxed">
+                  <div className="glass-effect rounded-xl p-4 sm:p-6 overflow-x-auto bg-gray-900/50 border border-white/10 mb-6">
+                    <pre className="text-xs sm:text-sm font-mono leading-relaxed whitespace-pre overflow-x-auto">
                       <code className="block text-gray-300">
                         <span className="text-purple-400">import</span> <span className="text-blue-400">{'{'}</span> <span className="text-yellow-400">ChatbotAd</span> <span className="text-blue-400">{'}'}</span> <span className="text-purple-400">from</span> <span className="text-green-400">'@kovio/chatbot-ad'</span>;
                         <br />
@@ -240,48 +248,48 @@ export default function DocsPage() {
                 </section>
 
                 {/* Props */}
-                <section id="props" className="mb-16 scroll-mt-24">
-                  <h2 className="text-3xl font-bold text-white mb-6">Props</h2>
-                  <div className="space-y-6">
-                    <div className="glass-effect rounded-xl p-6 border border-white/10">
-                      <h3 className="text-xl font-semibold text-white mb-3">publisherId</h3>
-                      <p className="text-gray-400 mb-2">
-                        <span className="text-red-400">Required</span> • <span className="text-gray-500">string</span>
+                <section id="props" className="mb-12 sm:mb-16 scroll-mt-24">
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6">Props</h2>
+                  <div className="space-y-4 sm:space-y-6">
+                    <div className="glass-effect rounded-xl p-5 sm:p-6 border border-white/10">
+                      <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">publisherId</h3>
+                      <p className="text-sm sm:text-base text-gray-400 mb-2">
+                        <span className="text-red-400 font-semibold">Required</span> • <span className="text-gray-500">string</span>
                       </p>
-                      <p className="text-gray-300">
+                      <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
                         Your unique publisher ID provided by Kovio. This identifies your application and enables ad serving.
                       </p>
                     </div>
 
-                    <div className="glass-effect rounded-xl p-6 border border-white/10">
-                      <h3 className="text-xl font-semibold text-white mb-3">keyword</h3>
-                      <p className="text-gray-400 mb-2">
-                        <span className="text-red-400">Required</span> • <span className="text-gray-500">string</span>
+                    <div className="glass-effect rounded-xl p-5 sm:p-6 border border-white/10">
+                      <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">keyword</h3>
+                      <p className="text-sm sm:text-base text-gray-400 mb-2">
+                        <span className="text-red-400 font-semibold">Required</span> • <span className="text-gray-500">string</span>
                       </p>
-                      <p className="text-gray-300 mb-2">
+                      <p className="text-sm sm:text-base text-gray-300 mb-2 leading-relaxed">
                         Contextual keywords to help match relevant ads. Multiple keywords can be provided as a comma-separated string.
                       </p>
-                      <p className="text-gray-400 text-sm">
-                        Example: <code className="text-green-400">"technology,ai,machine-learning"</code>
+                      <p className="text-xs sm:text-sm text-gray-400">
+                        Example: <code className="text-green-400 break-all">"technology,ai,machine-learning"</code>
                       </p>
                     </div>
 
-                    <div className="glass-effect rounded-xl p-6 border border-white/10">
-                      <h3 className="text-xl font-semibold text-white mb-3">theme</h3>
-                      <p className="text-gray-400 mb-2">
-                        <span className="text-yellow-400">Optional</span> • <span className="text-gray-500">'light' | 'dark'</span> • <span className="text-gray-500">Default: 'dark'</span>
+                    <div className="glass-effect rounded-xl p-5 sm:p-6 border border-white/10">
+                      <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">theme</h3>
+                      <p className="text-sm sm:text-base text-gray-400 mb-2">
+                        <span className="text-yellow-400 font-semibold">Optional</span> • <span className="text-gray-500">'light' | 'dark'</span> • <span className="text-gray-500">Default: 'dark'</span>
                       </p>
-                      <p className="text-gray-300">
+                      <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
                         The visual theme for the ad component. Choose between 'light' and 'dark' to match your application's design.
                       </p>
                     </div>
 
-                    <div className="glass-effect rounded-xl p-6 border border-white/10">
-                      <h3 className="text-xl font-semibold text-white mb-3">format</h3>
-                      <p className="text-gray-400 mb-2">
-                        <span className="text-yellow-400">Optional</span> • <span className="text-gray-500">'standard' | 'small'</span> • <span className="text-gray-500">Default: 'standard'</span>
+                    <div className="glass-effect rounded-xl p-5 sm:p-6 border border-white/10">
+                      <h3 className="text-lg sm:text-xl font-semibold text-white mb-3">format</h3>
+                      <p className="text-sm sm:text-base text-gray-400 mb-2">
+                        <span className="text-yellow-400 font-semibold">Optional</span> • <span className="text-gray-500">'standard' | 'small'</span> • <span className="text-gray-500">Default: 'standard'</span>
                       </p>
-                      <p className="text-gray-300">
+                      <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
                         The size format of the rendered ad. Use 'standard' for the default size or 'small' for a more compact ad display.
                       </p>
                     </div>
@@ -289,47 +297,47 @@ export default function DocsPage() {
                 </section>
 
                 {/* API Reference */}
-                <section id="api-reference" className="mb-16 scroll-mt-24">
-                  <h2 className="text-3xl font-bold text-white mb-6">API Reference</h2>
-                  <div className="glass-effect rounded-xl p-6 border border-white/10">
-                    <h3 className="text-xl font-semibold text-white mb-4">ChatbotAd Component</h3>
+                <section id="api-reference" className="mb-12 sm:mb-16 scroll-mt-24">
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6">API Reference</h2>
+                  <div className="glass-effect rounded-xl p-5 sm:p-6 border border-white/10">
+                    <h3 className="text-lg sm:text-xl font-semibold text-white mb-4">ChatbotAd Component</h3>
                     <div className="space-y-4">
                       <div>
-                        <h4 className="text-lg font-medium text-white mb-2">Props</h4>
+                        <h4 className="text-base sm:text-lg font-medium text-white mb-3">Props</h4>
                         <div className="overflow-x-auto">
-                          <table className="w-full text-sm text-gray-300 min-w-[480px]">
+                          <table className="min-w-[480px] w-full text-xs sm:text-sm text-gray-300">
                             <thead>
                               <tr className="border-b border-white/10">
-                                <th className="text-left py-2 px-4">Prop</th>
-                                <th className="text-left py-2 px-4">Type</th>
-                                <th className="text-left py-2 px-4">Required</th>
-                                <th className="text-left py-2 px-4">Default</th>
+                                <th className="text-left py-2 px-3 sm:px-4 whitespace-nowrap">Prop</th>
+                                <th className="text-left py-2 px-3 sm:px-4 whitespace-nowrap">Type</th>
+                                <th className="text-left py-2 px-3 sm:px-4 whitespace-nowrap">Required</th>
+                                <th className="text-left py-2 px-3 sm:px-4 whitespace-nowrap">Default</th>
                               </tr>
                             </thead>
                             <tbody>
                               <tr className="border-b border-white/5">
-                                <td className="py-2 px-4"><code className="text-primary-400">publisherId</code></td>
-                                <td className="py-2 px-4 text-gray-400">string</td>
-                                <td className="py-2 px-4 text-red-400">Yes</td>
-                                <td className="py-2 px-4 text-gray-500">-</td>
+                                <td className="py-2 px-3 sm:px-4"><code className="text-primary-400">publisherId</code></td>
+                                <td className="py-2 px-3 sm:px-4 text-gray-400">string</td>
+                                <td className="py-2 px-3 sm:px-4 text-red-400">Yes</td>
+                                <td className="py-2 px-3 sm:px-4 text-gray-500">-</td>
                               </tr>
                               <tr className="border-b border-white/5">
-                                <td className="py-2 px-4"><code className="text-primary-400">keyword</code></td>
-                                <td className="py-2 px-4 text-gray-400">string</td>
-                                <td className="py-2 px-4 text-red-400">Yes</td>
-                                <td className="py-2 px-4 text-gray-500">-</td>
+                                <td className="py-2 px-3 sm:px-4"><code className="text-primary-400">keyword</code></td>
+                                <td className="py-2 px-3 sm:px-4 text-gray-400">string</td>
+                                <td className="py-2 px-3 sm:px-4 text-red-400">Yes</td>
+                                <td className="py-2 px-3 sm:px-4 text-gray-500">-</td>
                               </tr>
                               <tr className="border-b border-white/5">
-                                <td className="py-2 px-4"><code className="text-primary-400">theme</code></td>
-                                <td className="py-2 px-4 text-gray-400">'light' | 'dark'</td>
-                                <td className="py-2 px-4 text-yellow-400">No</td>
-                                <td className="py-2 px-4 text-gray-500">'dark'</td>
+                                <td className="py-2 px-3 sm:px-4"><code className="text-primary-400">theme</code></td>
+                                <td className="py-2 px-3 sm:px-4 text-gray-400">'light' | 'dark'</td>
+                                <td className="py-2 px-3 sm:px-4 text-yellow-400">No</td>
+                                <td className="py-2 px-3 sm:px-4 text-gray-500">'dark'</td>
                               </tr>
                               <tr>
-                                <td className="py-2 px-4"><code className="text-primary-400">format</code></td>
-                                <td className="py-2 px-4 text-gray-400">'standard' | 'small'</td>
-                                <td className="py-2 px-4 text-yellow-400">No</td>
-                                <td className="py-2 px-4 text-gray-500">'standard'</td>
+                                <td className="py-2 px-3 sm:px-4"><code className="text-primary-400">format</code></td>
+                                <td className="py-2 px-3 sm:px-4 text-gray-400">'standard' | 'small'</td>
+                                <td className="py-2 px-3 sm:px-4 text-yellow-400">No</td>
+                                <td className="py-2 px-3 sm:px-4 text-gray-500">'standard'</td>
                               </tr>
                             </tbody>
                           </table>
