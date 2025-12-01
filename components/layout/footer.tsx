@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Logo from '@/components/brand/logo';
 
 export default function Footer() {
     return (
@@ -7,9 +8,8 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-12 mb-12">
                     {/* Brand */}
                     <div className="col-span-1 md:col-span-2">
-                        <div className="flex items-center space-x-2 mb-4">
-                            <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-accent-500 rounded-lg"></div>
-                            <span className="text-xl font-bold gradient-text">AdInfra AI</span>
+                        <div className="mb-4">
+                            <Logo />
                         </div>
                         <p className="text-gray-400 max-w-md leading-relaxed mb-6">
                             The Ad Network for AI. Monetize conversations with contextual ads that users love.
@@ -18,13 +18,13 @@ export default function Footer() {
                         {/* Newsletter */}
                         <div className="mt-6">
                             <p className="text-sm text-gray-400 mb-3">Stay updated</p>
-                            <div className="flex gap-2">
+                            <div className="flex flex-col sm:flex-row gap-2">
                                 <input
                                     type="email"
                                     placeholder="your@email.com"
                                     className="flex-1 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors"
                                 />
-                                <button className="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors">
+                                <button className="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors w-full sm:w-auto">
                                     Subscribe
                                 </button>
                             </div>
@@ -110,7 +110,7 @@ export default function Footer() {
 
                 <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
                     <p className="text-gray-400 text-sm">
-                        © {new Date().getFullYear()} AdInfra AI. All rights reserved.
+                        © {new Date().getFullYear()} Kovio. All rights reserved.
                     </p>
                     
                     {/* Social Links */}

@@ -14,10 +14,10 @@ const sidebarItems = [
 ];
 
 const packageManagers = [
-  { id: 'npm', name: 'npm', command: 'npm install @adinfra/chatbot-ad', icon: 'npm' },
-  { id: 'yarn', name: 'yarn', command: 'yarn add @adinfra/chatbot-ad', icon: 'yarn' },
-  { id: 'pnpm', name: 'pnpm', command: 'pnpm add @adinfra/chatbot-ad', icon: 'pnpm' },
-  { id: 'bun', name: 'bun', command: 'bun add @adinfra/chatbot-ad', icon: 'bun' },
+  { id: 'npm', name: 'npm', command: 'npm install @kovio/chatbot-ad', icon: 'npm' },
+  { id: 'yarn', name: 'yarn', command: 'yarn add @kovio/chatbot-ad', icon: 'yarn' },
+  { id: 'pnpm', name: 'pnpm', command: 'pnpm add @kovio/chatbot-ad', icon: 'pnpm' },
+  { id: 'bun', name: 'bun', command: 'bun add @kovio/chatbot-ad', icon: 'bun' },
 ];
 
 const PackageManagerIcon = ({ type }: { type: string }) => {
@@ -141,10 +141,10 @@ export default function DocsPage() {
                 <section id="getting-started" className="mb-16 scroll-mt-24">
                   <h1 className="text-4xl font-bold text-white mb-4">Getting Started</h1>
                   <p className="text-xl text-gray-300 mb-4">
-                    Integrate AdInfra AI into your chatbot application with just a few lines of code.
+                    Integrate Kovio into your chatbot application with just a few lines of code.
                   </p>
                   <p className="text-lg text-gray-400 mb-8">
-                    The AdInfra AI SDK is available for <span className="text-primary-400 font-semibold">React</span> and <span className="text-primary-400 font-semibold">React Native</span> applications.
+                    The Kovio SDK is available for <span className="text-primary-400 font-semibold">React</span> and <span className="text-primary-400 font-semibold">React Native</span> applications.
                   </p>
                 </section>
 
@@ -152,7 +152,7 @@ export default function DocsPage() {
                 <section id="installation" className="mb-16 scroll-mt-24">
                   <h2 className="text-3xl font-bold text-white mb-6">Installation</h2>
                   <p className="text-gray-300 mb-6">
-                    Install the AdInfra AI SDK for React or React Native:
+                    Install the Kovio SDK for React or React Native:
                   </p>
                   
                   {/* Package Manager Selector */}
@@ -208,7 +208,7 @@ export default function DocsPage() {
                   <div className="glass-effect rounded-xl p-6 overflow-x-auto bg-gray-900/50 border border-white/10 mb-6">
                     <pre className="text-sm font-mono leading-relaxed">
                       <code className="block text-gray-300">
-                        <span className="text-purple-400">import</span> <span className="text-blue-400">{'{'}</span> <span className="text-yellow-400">ChatbotAd</span> <span className="text-blue-400">{'}'}</span> <span className="text-purple-400">from</span> <span className="text-green-400">'@adinfra/chatbot-ad'</span>;
+                        <span className="text-purple-400">import</span> <span className="text-blue-400">{'{'}</span> <span className="text-yellow-400">ChatbotAd</span> <span className="text-blue-400">{'}'}</span> <span className="text-purple-400">from</span> <span className="text-green-400">'@kovio/chatbot-ad'</span>;
                         <br />
                         <br />
                         <span className="text-purple-400">function</span> <span className="text-blue-400">MyChatbot</span><span className="text-gray-500">()</span> <span className="text-blue-400">{'{'}</span>
@@ -249,7 +249,7 @@ export default function DocsPage() {
                         <span className="text-red-400">Required</span> • <span className="text-gray-500">string</span>
                       </p>
                       <p className="text-gray-300">
-                        Your unique publisher ID provided by AdInfra AI. This identifies your application and enables ad serving.
+                        Your unique publisher ID provided by Kovio. This identifies your application and enables ad serving.
                       </p>
                     </div>
 
@@ -296,42 +296,44 @@ export default function DocsPage() {
                     <div className="space-y-4">
                       <div>
                         <h4 className="text-lg font-medium text-white mb-2">Props</h4>
-                        <table className="w-full text-sm text-gray-300">
-                          <thead>
-                            <tr className="border-b border-white/10">
-                              <th className="text-left py-2 px-4">Prop</th>
-                              <th className="text-left py-2 px-4">Type</th>
-                              <th className="text-left py-2 px-4">Required</th>
-                              <th className="text-left py-2 px-4">Default</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr className="border-b border-white/5">
-                              <td className="py-2 px-4"><code className="text-primary-400">publisherId</code></td>
-                              <td className="py-2 px-4 text-gray-400">string</td>
-                              <td className="py-2 px-4 text-red-400">Yes</td>
-                              <td className="py-2 px-4 text-gray-500">-</td>
-                            </tr>
-                            <tr className="border-b border-white/5">
-                              <td className="py-2 px-4"><code className="text-primary-400">keyword</code></td>
-                              <td className="py-2 px-4 text-gray-400">string</td>
-                              <td className="py-2 px-4 text-red-400">Yes</td>
-                              <td className="py-2 px-4 text-gray-500">-</td>
-                            </tr>
-                            <tr className="border-b border-white/5">
-                              <td className="py-2 px-4"><code className="text-primary-400">theme</code></td>
-                              <td className="py-2 px-4 text-gray-400">'light' | 'dark'</td>
-                              <td className="py-2 px-4 text-yellow-400">No</td>
-                              <td className="py-2 px-4 text-gray-500">'dark'</td>
-                            </tr>
-                            <tr>
-                              <td className="py-2 px-4"><code className="text-primary-400">format</code></td>
-                              <td className="py-2 px-4 text-gray-400">'standard' | 'small'</td>
-                              <td className="py-2 px-4 text-yellow-400">No</td>
-                              <td className="py-2 px-4 text-gray-500">'standard'</td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        <div className="overflow-x-auto">
+                          <table className="w-full text-sm text-gray-300 min-w-[480px]">
+                            <thead>
+                              <tr className="border-b border-white/10">
+                                <th className="text-left py-2 px-4">Prop</th>
+                                <th className="text-left py-2 px-4">Type</th>
+                                <th className="text-left py-2 px-4">Required</th>
+                                <th className="text-left py-2 px-4">Default</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr className="border-b border-white/5">
+                                <td className="py-2 px-4"><code className="text-primary-400">publisherId</code></td>
+                                <td className="py-2 px-4 text-gray-400">string</td>
+                                <td className="py-2 px-4 text-red-400">Yes</td>
+                                <td className="py-2 px-4 text-gray-500">-</td>
+                              </tr>
+                              <tr className="border-b border-white/5">
+                                <td className="py-2 px-4"><code className="text-primary-400">keyword</code></td>
+                                <td className="py-2 px-4 text-gray-400">string</td>
+                                <td className="py-2 px-4 text-red-400">Yes</td>
+                                <td className="py-2 px-4 text-gray-500">-</td>
+                              </tr>
+                              <tr className="border-b border-white/5">
+                                <td className="py-2 px-4"><code className="text-primary-400">theme</code></td>
+                                <td className="py-2 px-4 text-gray-400">'light' | 'dark'</td>
+                                <td className="py-2 px-4 text-yellow-400">No</td>
+                                <td className="py-2 px-4 text-gray-500">'dark'</td>
+                              </tr>
+                              <tr>
+                                <td className="py-2 px-4"><code className="text-primary-400">format</code></td>
+                                <td className="py-2 px-4 text-gray-400">'standard' | 'small'</td>
+                                <td className="py-2 px-4 text-yellow-400">No</td>
+                                <td className="py-2 px-4 text-gray-500">'standard'</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -6,8 +6,11 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'AI Ad Infrastructure | Monetize AI Chatbots',
+  title: 'Kovio | AI Ad Infrastructure for Chatbots',
   description: 'Revolutionary ad infrastructure for AI. Enable publishers to monetize AI chatbots and advertisers to reach users in conversational interfaces.',
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import Logo from '@/components/brand/logo';
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,9 +33,8 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center space-x-2">
-                        <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-accent-500 rounded-lg"></div>
-                        <span className="text-xl font-bold gradient-text">AdInfra AI</span>
+                    <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+                        <Logo />
                     </Link>
 
                     {/* Desktop Navigation */}
@@ -47,7 +47,7 @@ export default function Navbar() {
                             }`}>
                                 Features
                             </Link>
-                            <Link href="/#proven-results" className={`transition-colors ${
+                            <Link href="/case-studies" className={`transition-colors ${
                                 shouldBeTransparent
                                     ? 'text-white/90 hover:text-white'
                                     : 'text-gray-300 hover:text-white'
@@ -128,7 +128,7 @@ export default function Navbar() {
                             Features
                         </Link>
                         <Link
-                            href="/#proven-results"
+                            href="/case-studies"
                             className={`block transition-colors ${
                                 shouldBeTransparent
                                     ? 'text-white/90 hover:text-white'

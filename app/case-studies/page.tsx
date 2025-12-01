@@ -18,7 +18,7 @@ export default function CaseStudiesPage() {
                         </h1>
                         <p className="text-xl text-gray-300 max-w-3xl mx-auto">
                             Discover how publishers and advertisers are transforming their businesses
-                            with AdInfra AI's revolutionary ad infrastructure.
+                            with Kovio's revolutionary ad infrastructure.
                         </p>
                     </div>
                 </section>

@@ -94,7 +94,7 @@ export default function WaitlistForm() {
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-2">Thank You!</h3>
                 <p className="text-gray-400">
-                    We've received your information. We'll notify you soon about early access to AdInfra AI.
+                    We've received your information. We'll notify you soon about early access to Kovio.
                 </p>
             </div>
         );
@@ -204,7 +204,7 @@ export default function WaitlistForm() {
                 <label className="block text-sm font-semibold text-gray-300 mb-4">
                     I am a *
                 </label>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <label className="relative flex items-center justify-center p-4 rounded-xl border-2 border-white/20 bg-white/5 hover:border-white/30 hover:bg-white/10 cursor-pointer transition-all duration-200 has-[:checked]:border-primary-500 has-[:checked]:bg-primary-500/10">
                         <input
                             type="radio"
@@ -256,7 +256,7 @@ export default function WaitlistForm() {
 
             {/* Privacy Notice */}
             <p className="text-xs text-gray-500 text-center pt-2">
-                By submitting this form, you agree to receive updates about AdInfra AI. We respect your privacy and will never share your information.
+                By submitting this form, you agree to receive updates about Kovio. We respect your privacy and will never share your information.
             </p>
         </form>
     );

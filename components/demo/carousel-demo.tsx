@@ -100,7 +100,7 @@ export default function CarouselDemo() {
   };
 
   return (
-    <div className="relative max-w-6xl mx-auto">
+    <div className="relative max-w-full sm:max-w-3xl lg:max-w-6xl mx-auto px-2 sm:px-0">
       {/* Format Indicator */}
       <div className="text-center mb-8">
         <div className="inline-flex items-center gap-3 glass-effect rounded-full px-6 py-3">
@@ -115,15 +115,15 @@ export default function CarouselDemo() {
       </div>
 
       {/* Demo Container */}
-      <div className="glass-effect rounded-3xl p-8 md:p-12 relative overflow-hidden">
+      <div className="glass-effect rounded-3xl p-6 sm:p-8 md:p-12 relative overflow-hidden">
         {/* Background glow effects */}
         <div className="absolute -top-20 -right-20 w-64 h-64 bg-primary-500/20 rounded-full blur-3xl"></div>
         <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-accent-500/20 rounded-full blur-3xl"></div>
 
-        {/* Navigation Arrows */}
+        {/* Navigation Arrows (hidden on very small screens, rely on dots) */}
         <button
           onClick={prevFormat}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 glass-effect hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all duration-300 group"
+          className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 lg:w-12 lg:h-12 glass-effect hover:bg-white/20 rounded-full items-center justify-center text-white transition-all duration-300 group"
           aria-label="Previous format"
         >
           <svg className="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -133,7 +133,7 @@ export default function CarouselDemo() {
 
         <button
           onClick={nextFormat}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 glass-effect hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all duration-300 group"
+          className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 lg:w-12 lg:h-12 glass-effect hover:bg-white/20 rounded-full items-center justify-center text-white transition-all duration-300 group"
           aria-label="Next format"
         >
           <svg className="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -219,7 +219,7 @@ export default function CarouselDemo() {
           {/* Processing Indicator - For Generation, show BLURRED BACKGROUND then FOREGROUND AD */}
           {activeFormat !== 'generation' ? (
             <div
-              className={`transition-all duration-500 flex items-center gap-3 ml-14 ${
+              className={`transition-all duration-500 flex items-center gap-3 ml-0 sm:ml-14 ${
                 step >= 1 && step < 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
               }`}
             >
@@ -451,7 +451,7 @@ export default function CarouselDemo() {
             >
               <div className="mb-4">
                 <h3 className="text-lg font-semibold text-white mb-3">Your songs are ready</h3>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Song Card 1 */}
                   <div className="group cursor-pointer">
                     <div className="relative aspect-square rounded-2xl overflow-hidden mb-3 bg-gradient-to-br from-pink-400 via-purple-400 to-blue-400">
@@ -501,7 +501,7 @@ export default function CarouselDemo() {
 
           {/* Sponsored Ads - Different Formats */}
           <div
-            className={`transition-all duration-500 ml-14 ${
+            className={`transition-all duration-500 ml-0 sm:ml-14 ${
               step >= 3 ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95'
             }`}
           >

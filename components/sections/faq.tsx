@@ -9,7 +9,7 @@ interface FAQItem {
 
 const faqs: FAQItem[] = [
   {
-    question: 'How long does it take to implement AdInfra?',
+    question: 'How long does it take to implement Kovio?',
     answer: 'Most publishers go live in under 10 minutes. Our SDK is designed for simplicity with just a few lines of code to integrate.'
   },
   {
@@ -21,7 +21,7 @@ const faqs: FAQItem[] = [
     answer: 'Payouts are issued monthly on Net-30 terms. All metrics shown in your dashboard reflect validated impressions and clicks.'
   },
   {
-    question: 'How does AdInfra decide which ads to display?',
+    question: 'How does Kovio decide which ads to display?',
     answer: 'We use advanced AI models to analyze user context and intent in real-time. Ads are matched based on relevance, ensuring users see contextual content that adds value to their conversation.'
   },
   {
@@ -49,7 +49,7 @@ export default function FAQ() {
             Frequently Asked Questions
           </h2>
           <p className="text-xl text-gray-400">
-            Everything you need to know about AdInfra
+            Everything you need to know about Kovio
           </p>
         </div>
 

@@ -17,7 +17,7 @@ export const caseStudies: CaseStudy[] = [
         company: 'TechChat AI',
         type: 'publisher',
         challenge: 'Leading AI chatbot platform struggled to monetize their 5M+ monthly active users without disrupting user experience.',
-        solution: 'Integrated AdInfra AI\'s contextual ad system, delivering relevant ads within natural conversation flow.',
+        solution: 'Integrated Kovio\'s contextual ad system, delivering relevant ads within natural conversation flow.',
         results: [
             {
                 metric: '40%',
@@ -41,7 +41,7 @@ export const caseStudies: CaseStudy[] = [
         company: 'Global Retail Brand',
         type: 'advertiser',
         challenge: 'Major e-commerce brand needed to reach users in AI-powered shopping assistants but lacked the infrastructure.',
-        solution: 'Launched targeted campaigns through AdInfra AI\'s network of premium AI chatbots.',
+        solution: 'Launched targeted campaigns through Kovio\'s network of premium AI chatbots.',
         results: [
             {
                 metric: '45%',
@@ -65,7 +65,7 @@ export const caseStudies: CaseStudy[] = [
         company: 'HealthBot Pro',
         type: 'publisher',
         challenge: 'Healthcare AI assistant needed compliant monetization solution that respected user privacy and medical context.',
-        solution: 'Deployed AdInfra AI with custom filters for healthcare-appropriate advertising.',
+        solution: 'Deployed Kovio with custom filters for healthcare-appropriate advertising.',
         results: [
             {
                 metric: '$2.4M',
