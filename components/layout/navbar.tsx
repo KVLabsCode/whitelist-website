@@ -85,13 +85,13 @@ export default function Navbar() {
                             }`}>
                                 Publishers
                             </Link>
-                            <Link href="/docs" className={`transition-colors ${
+                            <a href="https://kovio.mintlify.app/" target="_blank" rel="noopener noreferrer" className={`transition-colors ${
                                 shouldBeTransparent
                                     ? 'text-white/90 hover:text-white'
                                     : 'text-gray-300 hover:text-white'
                             }`}>
                                 Docs
-                            </Link>
+                            </a>
                         </div>
                         <div className="flex items-center space-x-3 ml-8">
                             <a 
@@ -158,8 +158,10 @@ export default function Navbar() {
                         >
                             Publishers
                         </Link>
-                        <Link
-                            href="/docs"
+                        <a
+                            href="https://kovio.mintlify.app/"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className={`block px-4 py-3 mx-2 rounded-lg transition-all ${
                                 shouldBeTransparent
                                     ? 'text-white/90 hover:text-white hover:bg-white/10'
@@ -168,7 +170,7 @@ export default function Navbar() {
                             onClick={() => setIsMenuOpen(false)}
                         >
                             Docs
-                        </Link>
+                        </a>
                         <div className="pt-3 mt-2 border-t border-white/10 space-y-2 px-2">
                             <a
                                 href="https://chat-ad-network.vercel.app/"

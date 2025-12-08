@@ -41,9 +41,9 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/docs" className="text-gray-400 hover:text-white transition-colors text-sm">
+                                <a href="https://kovio.mintlify.app/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">
                                     Documentation
-                                </Link>
+                                </a>
                             </li>
                             <li>
                                 <a href="https://chat-ad-network.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">
