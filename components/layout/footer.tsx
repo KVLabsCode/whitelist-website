@@ -46,7 +46,7 @@ export default function Footer() {
                                 </a>
                             </li>
                             <li>
-                                <a href="https://chat-ad-network.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">
+                                <a href="https://www.dashboard.kovio.dev/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">
                                     Dashboard
                                 </a>
                             </li>

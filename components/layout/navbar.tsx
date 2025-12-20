@@ -95,7 +95,7 @@ export default function Navbar() {
                         </div>
                         <div className="flex items-center space-x-3 ml-8">
                             <a 
-                                href="https://chat-ad-network.vercel.app/" 
+                                href="https://www.dashboard.kovio.dev/" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
                                 className={`transition-all ${
@@ -173,7 +173,7 @@ export default function Navbar() {
                         </a>
                         <div className="pt-3 mt-2 border-t border-white/10 space-y-2 px-2">
                             <a
-                                href="https://chat-ad-network.vercel.app/"
+                                href="https://www.dashboard.kovio.dev/"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="block w-full btn-secondary text-center py-3.5 text-base"
