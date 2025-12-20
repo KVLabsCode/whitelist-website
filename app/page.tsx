@@ -53,7 +53,7 @@ export default function Home() {
                       </svg>
                     </span>
                   </Link>
-                  <a href="https://kovio.mintlify.app/" target="_blank" rel="noopener noreferrer" className="btn-secondary text-base sm:text-lg px-8 sm:px-10 py-4 sm:py-5 hover:bg-white/15 transition-all duration-300">
+                  <a href="https://docs.kovio.dev/" target="_blank" rel="noopener noreferrer" className="btn-secondary text-base sm:text-lg px-8 sm:px-10 py-4 sm:py-5 hover:bg-white/15 transition-all duration-300">
                     View Docs
                   </a>
                 </div>
@@ -525,7 +525,7 @@ export default function Home() {
                   <path d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </Link>
-              <a href="https://kovio.mintlify.app/" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto btn-secondary text-base sm:text-lg px-8 sm:px-10 py-3.5 sm:py-4 inline-flex items-center justify-center gap-2">
+              <a href="https://docs.kovio.dev/" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto btn-secondary text-base sm:text-lg px-8 sm:px-10 py-3.5 sm:py-4 inline-flex items-center justify-center gap-2">
                 View Docs
                 <svg className="w-5 h-5" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
                   <path d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />

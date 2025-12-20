@@ -85,7 +85,7 @@ export default function Navbar() {
                             }`}>
                                 Publishers
                             </Link>
-                            <a href="https://kovio.mintlify.app/" target="_blank" rel="noopener noreferrer" className={`transition-colors ${
+                            <a href="https://docs.kovio.dev/" target="_blank" rel="noopener noreferrer" className={`transition-colors ${
                                 shouldBeTransparent
                                     ? 'text-white/90 hover:text-white'
                                     : 'text-gray-300 hover:text-white'
@@ -159,7 +159,7 @@ export default function Navbar() {
                             Publishers
                         </Link>
                         <a
-                            href="https://kovio.mintlify.app/"
+                            href="https://docs.kovio.dev/"
                             target="_blank"
                             rel="noopener noreferrer"
                             className={`block px-4 py-3 mx-2 rounded-lg transition-all ${
