@@ -44,7 +44,7 @@ export default function Navbar() {
                             News
                         </span>
                         <span className={shouldBeTransparent ? 'text-white/80' : 'text-gray-200'}>
-                            Starting the seed round raise for Kovio!
+                            AI hype is high, but profitability remains elusive for most players!
                         </span>
                         <Link
                             href="/waitlist"
