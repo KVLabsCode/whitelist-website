@@ -107,112 +107,325 @@ export default function CarouselDemo() {
     setIsAutoPlay(false); // Pause carousel while this flow plays out
   };
 
+  // Filter formats for mobile (exclude generation)
+  const mobileFormats = formats.filter(f => f.id !== 'generation');
+  
+  // If generation is selected, ensure it's not shown on mobile (safety check)
+  useEffect(() => {
+    const checkMobile = () => {
+      if (window.innerWidth < 768 && activeFormat === 'generation') {
+        setActiveFormat('inline');
+        setStep(0);
+        setIsGenerating(false);
+      }
+    };
+    
+    if (typeof window !== 'undefined') {
+      checkMobile();
+      window.addEventListener('resize', checkMobile);
+      return () => window.removeEventListener('resize', checkMobile);
+    }
+  }, [activeFormat]);
+
   return (
     <div className="max-w-full sm:max-w-3xl lg:max-w-6xl mx-auto px-2 sm:px-0">
       {/* Format selector - prominently shown above carousel */}
       <div className="mb-8 sm:mb-10 flex justify-center">
         <div className="inline-flex flex-wrap items-center justify-center gap-2 glass-effect rounded-xl p-1.5 shadow-lg">
-          {formats.map((format) => (
-            <button
-              key={format.id}
-              onClick={() => goToFormat(format.id)}
-              className={`px-4 sm:px-5 py-2.5 sm:py-3 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-300 ${
-                activeFormat === format.id
-                  ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/30'
-                  : 'text-gray-400 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              <span className="hidden sm:inline">{format.name}</span>
-              <span className="sm:hidden">{format.name.split(' ')[0]}</span>
-            </button>
-          ))}
+          {/* Mobile: show only non-generation formats */}
+          <div className="md:hidden flex gap-2">
+            {mobileFormats.map((format) => (
+              <button
+                key={format.id}
+                onClick={() => goToFormat(format.id)}
+                className={`px-4 py-2.5 rounded-lg text-xs font-semibold transition-all duration-300 ${
+                  activeFormat === format.id
+                    ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/30'
+                    : 'text-gray-400 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                {format.name.split(' ')[0]}
+              </button>
+            ))}
+          </div>
+          {/* Desktop: show all formats */}
+          <div className="hidden md:flex gap-2">
+            {formats.map((format) => (
+              <button
+                key={format.id}
+                onClick={() => goToFormat(format.id)}
+                className={`px-5 py-3 rounded-lg text-sm font-semibold transition-all duration-300 ${
+                  activeFormat === format.id
+                    ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/30'
+                    : 'text-gray-400 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                {format.name}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
       
-      {/* Mobile: scrollable inline chat demo (simplified) */}
+      {/* Mobile: Interactive demo with all formats */}
       <div className="md:hidden mb-8">
-        <div className="glass-effect rounded-2xl p-4 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-gray-200">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse" />
-            <span>Inline Ads · Mobile preview</span>
-          </div>
+        <div className="glass-effect rounded-2xl p-4 sm:p-5 space-y-4 relative overflow-hidden">
+          {/* Background glow effects for mobile */}
+          <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary-500/10 rounded-full blur-2xl"></div>
+          <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-accent-500/10 rounded-full blur-2xl"></div>
+          
+          <div className="relative z-10 space-y-4">
+            {/* Format indicator badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-gray-200">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse" />
+              <span>{mobileFormats.find(f => f.id === activeFormat)?.name || 'Inline Ads'} · Mobile preview</span>
+            </div>
 
-          {/* User message */}
-          <div className="flex items-start gap-3">
-            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white text-sm font-semibold">
-              U
-            </div>
-            <div className="flex-1">
-              <div className="bg-white/5 border border-white/10 rounded-2xl rounded-tl-none p-3 backdrop-blur-sm">
-                <p className="text-sm text-gray-200">
-                  What are the best running shoes for marathon training?
-                </p>
-              </div>
-              <p className="text-xs text-gray-500 mt-1 ml-2">User Query</p>
-            </div>
-          </div>
-
-          {/* AI response */}
-          <div className="flex items-start gap-3">
-            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-semibold shadow-lg shadow-purple-500/30">
-              AI
-            </div>
-            <div className="flex-1">
-              <div className="bg-gradient-to-br from-white/10 to-white/5 border border-white/10 rounded-2xl rounded-tl-none p-3 backdrop-blur-sm">
-                <p className="text-sm text-gray-200 mb-2">
-                  For marathon training, you'll want shoes with excellent cushioning and support. 
-                  Here are the top recommendations:
-                </p>
-                <ul className="space-y-1 text-xs text-gray-300">
-                  <li className="flex items-start gap-1.5">
-                    <span className="text-primary-400 mt-0.5">•</span>
-                    <span><strong className="text-white">Nike ZoomX Vaporfly</strong> – Elite racing shoe with carbon plate</span>
-                  </li>
-                  <li className="flex items-start gap-1.5">
-                    <span className="text-primary-400 mt-0.5">•</span>
-                    <span><strong className="text-white">ASICS Gel-Nimbus 25</strong> – Maximum cushioning</span>
-                  </li>
-                </ul>
-              </div>
-              <p className="text-xs text-gray-500 mt-1 ml-2">AI Response</p>
-            </div>
-          </div>
-
-          {/* Inline sponsored ad */}
-          <div className="mt-2">
-            <div className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-500 via-accent-500 to-primary-500 rounded-2xl opacity-60 group-hover:opacity-100 blur transition duration-500 animate-gradient-x"></div>
-              <div className="relative bg-gradient-to-br from-gray-900 to-black rounded-2xl p-4 border border-primary-500/30 hover:border-primary-500/50 transition-all duration-300">
-                <div className="flex items-start justify-between mb-2">
-                  <span className="px-2 py-0.5 bg-gradient-to-r from-primary-500/20 to-accent-500/20 border border-primary-500/30 rounded-full text-[10px] font-semibold text-primary-300">
-                    SPONSORED
-                  </span>
-                </div>
-                <h3 className="text-sm font-semibold text-white mb-1">
-                  Get 20% Off Running Shoes at FleetFeet
-                </h3>
-                <p className="text-xs text-gray-400 mb-3 leading-relaxed">
-                  Expert fitting, premium brands, and personalized gait analysis. Find your perfect marathon training shoe today.
-                </p>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
-                      <svg className="w-4 h-4 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                        <path d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <div className="text-xs font-semibold text-white">FleetFeet</div>
-                      <div className="text-[10px] text-gray-500">fleetfeet.com</div>
-                    </div>
+            {/* Mobile formats (inline, followup, card only - no generation) */}
+            <>
+                {/* User message */}
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white text-sm font-semibold shadow-lg">
+                    U
                   </div>
-                  <button className="px-3 py-1.5 bg-gradient-to-r from-primary-600 to-accent-600 text-[11px] font-semibold rounded-lg">
-                    Shop Now
-                  </button>
+                  <div className="flex-1">
+                    <div className="bg-white/5 border border-white/10 rounded-2xl rounded-tl-none p-3 backdrop-blur-sm">
+                      <p className="text-sm text-gray-200">
+                        {activeFormat === 'inline' && 'What are the best running shoes for marathon training?'}
+                        {activeFormat === 'followup' && 'How do I start learning web development?'}
+                        {activeFormat === 'card' && 'What are the top productivity apps for 2024?'}
+                      </p>
+                    </div>
+                    <p className="text-xs text-gray-500 mt-1 ml-2">User Query</p>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <p className="text-[10px] text-gray-500 mt-1 ml-1">Inline Sponsored Ad</p>
+
+                {/* AI response */}
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-semibold shadow-lg shadow-purple-500/30">
+                    AI
+                  </div>
+                  <div className="flex-1">
+                    <div className="bg-gradient-to-br from-white/10 to-white/5 border border-white/10 rounded-2xl rounded-tl-none p-3 backdrop-blur-sm">
+                      {activeFormat === 'inline' && (
+                        <>
+                          <p className="text-sm text-gray-200 mb-2">
+                            For marathon training, you'll want shoes with excellent cushioning and support. 
+                            Here are the top recommendations:
+                          </p>
+                          <ul className="space-y-1 text-xs text-gray-300">
+                            <li className="flex items-start gap-1.5">
+                              <span className="text-primary-400 mt-0.5">•</span>
+                              <span><strong className="text-white">Nike ZoomX Vaporfly</strong> – Elite racing shoe with carbon plate</span>
+                            </li>
+                            <li className="flex items-start gap-1.5">
+                              <span className="text-primary-400 mt-0.5">•</span>
+                              <span><strong className="text-white">ASICS Gel-Nimbus 25</strong> – Maximum cushioning</span>
+                            </li>
+                          </ul>
+                        </>
+                      )}
+                      
+                      {activeFormat === 'followup' && (
+                        <>
+                          <p className="text-sm text-gray-200 mb-2">
+                            Great question! Here's a beginner-friendly roadmap for web development:
+                          </p>
+                          <ul className="space-y-1 text-xs text-gray-300">
+                            <li className="flex items-start gap-1.5">
+                              <span className="text-primary-400 mt-0.5">1.</span>
+                              <span><strong className="text-white">HTML & CSS</strong> – Start with the fundamentals</span>
+                            </li>
+                            <li className="flex items-start gap-1.5">
+                              <span className="text-primary-400 mt-0.5">2.</span>
+                              <span><strong className="text-white">JavaScript</strong> – Learn programming basics</span>
+                            </li>
+                            <li className="flex items-start gap-1.5">
+                              <span className="text-primary-400 mt-0.5">3.</span>
+                              <span><strong className="text-white">React or Vue</strong> – Modern frameworks</span>
+                            </li>
+                          </ul>
+                        </>
+                      )}
+                      
+                      {activeFormat === 'card' && (
+                        <>
+                          <p className="text-sm text-gray-200 mb-2">
+                            Here are the top productivity apps that can help you stay organized and efficient:
+                          </p>
+                          <ul className="space-y-1 text-xs text-gray-300">
+                            <li className="flex items-start gap-1.5">
+                              <span className="text-primary-400 mt-0.5">•</span>
+                              <span><strong className="text-white">Notion</strong> – All-in-one workspace</span>
+                            </li>
+                            <li className="flex items-start gap-1.5">
+                              <span className="text-primary-400 mt-0.5">•</span>
+                              <span><strong className="text-white">Todoist</strong> – Task management</span>
+                            </li>
+                            <li className="flex items-start gap-1.5">
+                              <span className="text-primary-400 mt-0.5">•</span>
+                              <span><strong className="text-white">RescueTime</strong> – Time tracking</span>
+                            </li>
+                          </ul>
+                        </>
+                      )}
+                    </div>
+                    <p className="text-xs text-gray-500 mt-1 ml-2">AI Response</p>
+                  </div>
+                </div>
+
+                {/* Sponsored Ads - Different Formats */}
+                {activeFormat === 'inline' && (
+                  <div className="mt-2">
+                    <div className="relative group">
+                      <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-500 via-accent-500 to-primary-500 rounded-2xl opacity-60 group-hover:opacity-100 blur transition duration-500 animate-gradient-x"></div>
+                      <div className="relative bg-gradient-to-br from-gray-900 to-black rounded-2xl p-4 border border-primary-500/30 transition-all duration-300">
+                        <div className="flex items-start justify-between mb-2">
+                          <span className="px-2 py-0.5 bg-gradient-to-r from-primary-500/20 to-accent-500/20 border border-primary-500/30 rounded-full text-[10px] font-semibold text-primary-300">
+                            SPONSORED
+                          </span>
+                        </div>
+                        <h3 className="text-sm font-semibold text-white mb-1">
+                          Get 20% Off Running Shoes at FleetFeet
+                        </h3>
+                        <p className="text-xs text-gray-400 mb-3 leading-relaxed">
+                          Expert fitting, premium brands, and personalized gait analysis. Find your perfect marathon training shoe today.
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
+                              <svg className="w-4 h-4 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                              </svg>
+                            </div>
+                            <div>
+                              <div className="text-xs font-semibold text-white">FleetFeet</div>
+                              <div className="text-[10px] text-gray-500">fleetfeet.com</div>
+                            </div>
+                          </div>
+                          <button className="px-3 py-1.5 bg-gradient-to-r from-primary-600 to-accent-600 text-[11px] font-semibold rounded-lg transition-all hover:scale-105">
+                            Shop Now
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <p className="text-[10px] text-gray-500 mt-1 ml-1">Inline Sponsored Ad</p>
+                  </div>
+                )}
+
+                {activeFormat === 'followup' && (
+                  <div className="mt-2 space-y-2">
+                    <p className="text-xs font-semibold text-gray-400 mb-2">Related questions:</p>
+                    
+                    <div className="relative group">
+                      <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-500 to-accent-500 rounded-xl opacity-50 blur transition duration-500"></div>
+                      <button className="relative w-full bg-gradient-to-br from-gray-900 to-black rounded-xl p-3 border border-primary-500/30 transition-all duration-300 flex items-center justify-between">
+                        <div className="flex items-center gap-2 flex-1 min-w-0">
+                          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center flex-shrink-0">
+                            <svg className="w-3.5 h-3.5 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                              <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                            </svg>
+                          </div>
+                          <div className="text-left flex-1 min-w-0">
+                            <div className="text-xs font-medium text-white mb-0.5 truncate">Best coding bootcamps for beginners?</div>
+                            <div className="text-[10px] text-primary-400 font-semibold">SPONSORED • Codecademy</div>
+                          </div>
+                        </div>
+                        <svg className="w-4 h-4 text-gray-400 flex-shrink-0 ml-2" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                          <path d="M9 5l7 7-7 7" />
+                        </svg>
+                      </button>
+                    </div>
+
+                    <button className="w-full bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl p-3 transition-all duration-300 flex items-center justify-between">
+                      <div className="flex items-center gap-2 flex-1 min-w-0">
+                        <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
+                          <svg className="w-3.5 h-3.5 text-gray-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                        <span className="text-xs text-gray-300 font-medium truncate">What's the difference between frontend and backend?</span>
+                      </div>
+                      <svg className="w-4 h-4 text-gray-400 flex-shrink-0 ml-2" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+
+                    <button className="w-full bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl p-3 transition-all duration-300 flex items-center justify-between">
+                      <div className="flex items-center gap-2 flex-1 min-w-0">
+                        <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
+                          <svg className="w-3.5 h-3.5 text-gray-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                        <span className="text-xs text-gray-300 font-medium truncate">How long does it take to learn JavaScript?</span>
+                      </div>
+                      <svg className="w-4 h-4 text-gray-400 flex-shrink-0 ml-2" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                    
+                    <p className="text-[10px] text-gray-500 mt-1 ml-1">Follow-up Question Ad Format</p>
+                  </div>
+                )}
+
+                {activeFormat === 'card' && (
+                  <div className="mt-2">
+                    <div className="relative group">
+                      <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-500 via-purple-500 to-accent-500 rounded-2xl opacity-60 group-hover:opacity-100 blur transition duration-500 animate-gradient-x"></div>
+                      <div className="relative bg-gradient-to-br from-gray-900 to-black rounded-2xl overflow-hidden border border-primary-500/30 transition-all duration-300">
+                        <div className="p-4">
+                          <div className="flex items-start justify-between mb-3">
+                            <span className="px-2 py-0.5 bg-gradient-to-r from-primary-500/20 to-accent-500/20 border border-primary-500/30 rounded-full text-[10px] font-semibold text-primary-300">
+                              SPONSORED
+                            </span>
+                          </div>
+                          
+                          <div className="flex gap-3 mb-3">
+                            <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center flex-shrink-0">
+                              <svg className="w-8 h-8 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                              </svg>
+                            </div>
+                            
+                            <div className="flex-1 min-w-0">
+                              <h3 className="text-sm font-bold text-white mb-1">
+                                Notion - Your All-in-One Workspace
+                              </h3>
+                              <p className="text-xs text-gray-400 leading-relaxed">
+                                Write, plan, collaborate, and get organized. Millions trust Notion for productivity.
+                              </p>
+                            </div>
+                          </div>
+                          
+                          {/* Email Capture Form */}
+                          <div className="pt-3 border-t border-white/10">
+                            <p className="text-xs text-gray-300 mb-2 font-medium">
+                              Get started with a free template
+                            </p>
+                            <div className="flex gap-2">
+                              <input
+                                type="email"
+                                placeholder="Enter your email"
+                                className="flex-1 px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-primary-500 focus:bg-white/10 transition-all text-xs"
+                                onClick={(e) => e.preventDefault()}
+                              />
+                              <button className="px-4 py-2 bg-gradient-to-r from-primary-600 to-accent-600 text-white text-xs font-semibold rounded-lg transition-all duration-300 whitespace-nowrap">
+                                Get Template
+                              </button>
+                            </div>
+                            <p className="text-[10px] text-gray-500 mt-1.5">
+                              No credit card required • Free forever
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <p className="text-[10px] text-gray-500 mt-1 ml-1">Card Format Sponsored Ad</p>
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </div>
       </div>
