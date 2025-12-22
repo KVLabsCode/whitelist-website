@@ -13,8 +13,9 @@ export default function Navbar() {
     const isWaitlistPage = pathname === '/waitlist';
     const isCaseStudiesPage = pathname === '/case-studies';
     const isDocsPage = pathname === '/docs';
-    const shouldBeTransparent = (isHomePage || isWaitlistPage || isCaseStudiesPage || isDocsPage) && !isScrolled;
-    const showNewsBanner = !isDocsPage; // Hide news banner on docs page
+    const isBlogPage = pathname === '/blog';
+    const shouldBeTransparent = (isHomePage || isWaitlistPage || isCaseStudiesPage || isDocsPage || isBlogPage) && !isScrolled;
+    const showNewsBanner = !isDocsPage && !isBlogPage; // Hide news banner on docs and blog pages
 
     useEffect(() => {
         const handleScroll = () => {
@@ -47,7 +48,7 @@ export default function Navbar() {
                             AI hype is high, but profitability remains elusive for most players!
                         </span>
                         <Link
-                            href="/waitlist"
+                            href="/blog"
                             className="inline-flex items-center gap-1 text-primary-300 hover:text-primary-200 font-medium"
                         >
                             <span>Read more</span>

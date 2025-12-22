@@ -86,17 +86,6 @@ export default function WaitlistPage() {
                                 </div>
                             </div>
                         </div>
-
-                        {/* Trust Indicators */}
-                        <div className="mt-12 text-center">
-                            <p className="text-sm text-gray-500 mb-4">Trusted by innovative companies worldwide</p>
-                            <div className="flex flex-wrap justify-center items-center gap-8 opacity-50">
-                                <div className="text-gray-600 font-semibold text-lg">TechCorp</div>
-                                <div className="text-gray-600 font-semibold text-lg">AI Solutions</div>
-                                <div className="text-gray-600 font-semibold text-lg">DataFlow</div>
-                                <div className="text-gray-600 font-semibold text-lg">CloudNet</div>
-                            </div>
-                        </div>
                     </div>
                 </section>
             </main>
