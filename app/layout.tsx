@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
@@ -6,11 +6,17 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Kovio | AI Ad Infrastructure for Chatbots',
-  description: 'Revolutionary ad infrastructure for AI. Enable publishers to monetize AI chatbots and advertisers to reach users in conversational interfaces.',
+  title: 'Kovio | Agentic AI for Mobile Ad Operations',
+  description: 'Agentic AI that manages, operates, and optimizes your entire ad stack - AdMob, mediation platforms, and ad ops workflows - automatically.',
   icons: {
     icon: '/favicon.svg',
   },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({
