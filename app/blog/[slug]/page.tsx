@@ -8,11 +8,19 @@ import { notFound } from 'next/navigation';
 import PortableText from '@/components/blog/portable-text';
 
 export async function generateStaticParams() {
-  const slugs = await getPostSlugs();
-  if (!slugs || slugs.length === 0) {
-    return [];
+  try {
+    const slugs = await getPostSlugs();
+    if (!slugs || slugs.length === 0) {
+      // For static export, we must return at least one param
+      // Return a placeholder that will show 404
+      return [{ slug: '__placeholder__' }];
+    }
+    return slugs.map((slug) => ({ slug }));
+  } catch (error) {
+    console.error('Error generating static params:', error);
+    // Return placeholder for static export
+    return [{ slug: '__placeholder__' }];
   }
-  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -33,6 +41,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  
+  // Handle placeholder slug for static export
+  if (slug === '__placeholder__') {
+    notFound();
+  }
+  
   const post = await getPostBySlug(slug);
 
   if (!post) {
